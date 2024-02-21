@@ -14,27 +14,27 @@ model = ChatOpenAI(model_name='gpt-3.5-turbo')
 model_parser = model | StrOutputParser()
 
 deped_standards_prompt = ChatPromptTemplate.from_template(
-    """Tell me something interesting about {input_text}:"""
+    """Align to DepEd standards: {input_text}:"""
 )
 
 class_builder_standards_prompt = ChatPromptTemplate.from_template(
-    """Tell me something interesting about {input_text}:"""
+    """Align to class builder standards: {input_text}:"""
 )
 
 academic_learning_theories_prompt = ChatPromptTemplate.from_template(
-    """Tell me something interesting about {input_text}:"""
+    """Align to academic learning theories: {input_text}:"""
 )
 
 grammar_and_spelling_prompt = ChatPromptTemplate.from_template(
-    """Tell me something interesting about {input_text}:"""
+    """Make sure that the grammar and spelling of this text is correct: {input_text}"""
 )
 
 theme_consistency_prompt = ChatPromptTemplate.from_template(
-    """Tell me something interesting about {input_text}:"""
+    """Make sure the theme across this text is consistent: {input_text}"""
 )
 
 completeness_prompt = ChatPromptTemplate.from_template(
-    """Tell me something interesting about {input_text}:"""
+    """Make sure that the following text has the following components {input_text}:"""
 )
 
 summarize_prompt = ChatPromptTemplate.from_template(
@@ -109,24 +109,24 @@ def final_output(high_level_summary, low_level_summary):
 
 # Streamlit app
 st.title("QA Flow Processor")
-
+st.image('qa-flow.png')
 content = st.text_area("Content", "Enter your content here")
 
 if st.button("Process Content"):
     high_level_qa_output = high_level_qa(content)
-    st.text_area("Processed Output", value=high_level_qa_output, height=300)
+    st.text_area("High Level QA Output", value=high_level_qa_output, height=300)
 
     low_level_qa_output = low_level_qa(content)
-    st.text_area("Processed Output", value=low_level_qa_output, height=300)
+    st.text_area("Low Level QA Output", value=low_level_qa_output, height=300)
 
     high_level_summary = condensed_summary_cog_high_qa(high_level_qa_output)
-    st.text_area("Processed Output", value=high_level_summary, height=300)
+    st.text_area("High Level Summary", value=high_level_summary, height=300)
 
     low_level_summary = condensed_summary_cog_low_qa(low_level_qa_output)
-    st.text_area("Processed Output", value=low_level_summary, height=300)
+    st.text_area("Low Level Summary", value=low_level_summary, height=300)
 
     final_output_content = final_output(high_level_summary, low_level_summary)
-    st.text_area("Processed Output", value=final_output_content, height=300)
+    st.text_area("Final Output Content", value=final_output_content, height=300)
 
 
         
