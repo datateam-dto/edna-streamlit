@@ -79,7 +79,7 @@ with st.expander("See and Modify Prompts"):
     theme_consistency_prompt_text = st.text_area("Theme Consistency Prompt", value=prompts.get("theme_consistency_prompt_text", ""), height=300)
     completeness_prompt_text = st.text_area("Completeness Prompt", value=prompts.get("completeness_prompt_text", ""), height=300)
     summarize_prompt_text = st.text_area("Summarize Prompt", value=prompts.get("summarize_prompt_text", ""), height=300)
-
+    final_prompt_text = st.text_area("Final Prompt", value=prompts.get("final_prompt_text", ""), height=300)
 
 if st.button("Save Prompts"):
     prompts = {
@@ -90,6 +90,7 @@ if st.button("Save Prompts"):
         "theme_consistency_prompt_text": theme_consistency_prompt_text,
         "completeness_prompt_text": completeness_prompt_text,
         "summarize_prompt_text": summarize_prompt_text,
+        "final_prompt_text": final_prompt_text,
     }
     with open("prompts.yaml", "w") as file:
         yaml.dump(prompts, file)
@@ -120,7 +121,14 @@ if st.button("Process Content"):
         completeness_output = process_content_with_custom_prompt(content, completeness_prompt_text)
         st.write_stream(completeness_output)
 
-    with st.expander("See Summary Output"):
-        summarize_output = process_content_with_custom_prompt(content, summarize_prompt_text)
-        st.write_stream(summarize_output)
+    with st.expander("See Summary Output - Cog High"):
+        summarize_output_high_cog = process_content_with_custom_prompt(f"DepEd Standards Output:\n{deped_standards_output}\nClass Builder Standards Output:\n{class_builder_standards_output}\nAcademic Learning Theories Output:\n{academic_learning_theories_output}", summarize_prompt_text)
+        st.write_stream(summarize_output_high_cog)
 
+    with st.expander("See Summary Output - Cog Low"):
+        summarize_output_low_cog = process_content_with_custom_prompt(f"Grammar and Spelling Output:\n{grammar_and_spelling_output}\nTheme Consistency Output:\n{theme_consistency_output}\nCompleteness Output:\n{completeness_output}", summarize_prompt_text)
+        st.write_stream(summarize_output_low_cog)
+
+    with st.expander("See Final Output"):
+        final_output = process_content_with_custom_prompt(summarize_output_high_cog + summarize_output_low_cog + content, final_prompt_text)
+        st.write_stream(final_output)

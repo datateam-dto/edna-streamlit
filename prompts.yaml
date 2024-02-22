@@ -57,6 +57,10 @@ deped_standards_prompt_text: 'Evaluate {input_text} within the context of the De
   learning. Additionally, consider the lesson''s alignment with the MATATAG curriculum''s
   goals of developing critical thinkers and proficient problem solvers equipped for
   the 21st century.'
+final_prompt_text: '{input_text}
+
+
+  Re-write the content based on the summaries above it.'
 grammar_and_spelling_prompt_text: 'Examine {input_text} for language precision, grammar,
   spelling, and clarity, ensuring adherence to the Class Builder Manual''s language
   guidelines for creating developmentally appropriate materials. Assess the lesson
