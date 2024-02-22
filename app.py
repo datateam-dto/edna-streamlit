@@ -7,128 +7,120 @@ from langchain_openai import ChatOpenAI
 from langchain_core.runnables import RunnablePassthrough
 
 from dotenv import load_dotenv
+import yaml
 
-load_dotenv()  # take environment variables from .env.
+load_dotenv()  # Take environment variables from .env.
 
-model = ChatOpenAI(model_name='gpt-3.5-turbo')
+# streamlit_app.py
+
+import hmac
+import streamlit as st
+
+
+def check_password():
+    """Returns `True` if the user had the correct password."""
+
+    def password_entered():
+        """Checks whether a password entered by the user is correct."""
+        if hmac.compare_digest(st.session_state["password"], st.secrets["password"]):
+            st.session_state["password_correct"] = True
+            del st.session_state["password"]  # Don't store the password.
+        else:
+            st.session_state["password_correct"] = False
+
+    # Return True if the password is validated.
+    if st.session_state.get("password_correct", False):
+        return True
+
+    # Show input for password.
+    st.text_input(
+        "Password", type="password", on_change=password_entered, key="password"
+    )
+    if "password_correct" in st.session_state:
+        st.error("😕 Password incorrect")
+    return False
+
+
+if not check_password():
+    st.stop()  # Do not continue if check_password is not True.
+    
+# Instantiate the model
+model = ChatOpenAI(model_name='gpt-4-0125-preview')
 model_parser = model | StrOutputParser()
 
-deped_standards_prompt = ChatPromptTemplate.from_template(
-    """Align to DepEd standards: {input_text}:"""
-)
+# Function to dynamically generate ChatPromptTemplates from UI editable prompts
+def generate_prompt_template(template):
+    return ChatPromptTemplate.from_template(template)
 
-class_builder_standards_prompt = ChatPromptTemplate.from_template(
-    """Align to class builder standards: {input_text}:"""
-)
-
-academic_learning_theories_prompt = ChatPromptTemplate.from_template(
-    """Align to academic learning theories: {input_text}:"""
-)
-
-grammar_and_spelling_prompt = ChatPromptTemplate.from_template(
-    """Make sure that the grammar and spelling of this text is correct: {input_text}"""
-)
-
-theme_consistency_prompt = ChatPromptTemplate.from_template(
-    """Make sure the theme across this text is consistent: {input_text}"""
-)
-
-completeness_prompt = ChatPromptTemplate.from_template(
-    """Make sure that the following text has the following components {input_text}:"""
-)
-
-summarize_prompt = ChatPromptTemplate.from_template(
-    """Summarize {input_text}:"""
-)
-
-# Placeholder functions for each node in your diagram
-def deped_standards(content):
-    deped_standards_pass = (
-    {"input_text": RunnablePassthrough()} | deped_standards_prompt | model_parser
+# Placeholder function for generating outputs based on custom prompts
+def process_content_with_custom_prompt(content, custom_prompt_template):
+    custom_prompt = generate_prompt_template(custom_prompt_template)
+    custom_prompt_pass = (
+    {"input_text": RunnablePassthrough()} | custom_prompt | model_parser
     )
-    return deped_standards_pass.invoke(content)
+    return custom_prompt_pass.stream(content)
 
-def class_builder_standards(content):
-    class_builder_standards_pass = (
-    {"input_text": RunnablePassthrough()} | class_builder_standards_prompt | model_parser
-    )
-    return class_builder_standards_pass.invoke(content)
-
-def academic_learning_theories(content):
-    academic_learning_theories_pass = (
-    {"input_text": RunnablePassthrough()} | academic_learning_theories_prompt | model_parser
-    )
-    return academic_learning_theories_pass.invoke(content)
-
-def grammar_and_spelling(content):
-    grammar_and_spelling_pass = (
-    {"input_text": RunnablePassthrough()} | grammar_and_spelling_prompt | model_parser
-    )
-    return grammar_and_spelling_pass.invoke(content)
-
-def theme_consistency(content):
-    theme_consistency_pass = (
-    {"input_text": RunnablePassthrough()} | theme_consistency_prompt | model_parser
-    )
-    return theme_consistency_pass.invoke(content)
-
-def completeness(content):
-    completeness_pass = (
-    {"input_text": RunnablePassthrough()} | completeness_prompt | model_parser
-    )
-    return completeness_pass.invoke(content)
-
-def high_level_qa(content):
-    return "\n".join([
-        deped_standards(content),
-        class_builder_standards(content),
-        academic_learning_theories(content),
-    ])
-
-def low_level_qa(content):
-    return "\n".join([
-        grammar_and_spelling(content),
-        theme_consistency(content),
-        completeness(content),
-    ])
-
-def condensed_summary_cog_high_qa(content):
-    summarize_pass = (
-    {"input_text": RunnablePassthrough()} | summarize_prompt | model_parser
-    )
-    return summarize_pass.invoke(content)
-
-def condensed_summary_cog_low_qa(content):
-    summarize_pass = (
-    {"input_text": RunnablePassthrough()} | summarize_prompt | model_parser
-    )
-    return summarize_pass.invoke(content)
-
-def final_output(high_level_summary, low_level_summary):
-    return "\n".join([high_level_summary, low_level_summary, "Final Output combined content"])
-
-# Streamlit app
-st.title("QA Flow Processor")
+# Streamlit app UI
+st.title("QA Flow Processor with Customizable Prompts")
 st.image('qa-flow.png')
 content = st.text_area("Content", "Enter your content here")
 
+with st.expander("See and Modify Prompts"):
+    try:
+        with open("prompts.yaml", "r") as file:
+            prompts = yaml.safe_load(file)
+    except FileNotFoundError:
+        prompts = {}
+
+    deped_standards_prompt_text = st.text_area("DepEd Standards Prompt", value=prompts.get("deped_standards_prompt_text", ""), height=300)
+    class_builder_standards_prompt_text = st.text_area("Class Builder Standards Prompt", value=prompts.get("class_builder_standards_prompt_text", ""), height=300)
+    academic_learning_theories_prompt_text = st.text_area("Academic Learning Theories Prompt", value=prompts.get("academic_learning_theories_prompt_text", ""), height=300)
+    grammar_and_spelling_prompt_text = st.text_area("Grammar and Spelling Prompt", value=prompts.get("grammar_and_spelling_prompt_text", ""), height=300)
+    theme_consistency_prompt_text = st.text_area("Theme Consistency Prompt", value=prompts.get("theme_consistency_prompt_text", ""), height=300)
+    completeness_prompt_text = st.text_area("Completeness Prompt", value=prompts.get("completeness_prompt_text", ""), height=300)
+    summarize_prompt_text = st.text_area("Summarize Prompt", value=prompts.get("summarize_prompt_text", ""), height=300)
+
+
+if st.button("Save Prompts"):
+    prompts = {
+        "deped_standards_prompt_text": deped_standards_prompt_text,
+        "grammar_and_spelling_prompt_text": grammar_and_spelling_prompt_text,
+        "class_builder_standards_prompt_text": class_builder_standards_prompt_text,
+        "academic_learning_theories_prompt_text": academic_learning_theories_prompt_text,
+        "theme_consistency_prompt_text": theme_consistency_prompt_text,
+        "completeness_prompt_text": completeness_prompt_text,
+        "summarize_prompt_text": summarize_prompt_text,
+    }
+    with open("prompts.yaml", "w") as file:
+        yaml.dump(prompts, file)
+
 if st.button("Process Content"):
-    high_level_qa_output = high_level_qa(content)
-    st.text_area("High Level QA Output", value=high_level_qa_output, height=300)
+    # Process each area with the customized prompt
+    with st.expander("See DepEd Standards Output"):
+        deped_standards_output = process_content_with_custom_prompt(content, deped_standards_prompt_text)
+        st.write_stream(deped_standards_output)
 
-    low_level_qa_output = low_level_qa(content)
-    st.text_area("Low Level QA Output", value=low_level_qa_output, height=300)
+    with st.expander("See Class Builder Standards Output"):
+        class_builder_standards_output = process_content_with_custom_prompt(content, class_builder_standards_prompt_text)
+        st.write_stream(class_builder_standards_output)
 
-    high_level_summary = condensed_summary_cog_high_qa(high_level_qa_output)
-    st.text_area("High Level Summary", value=high_level_summary, height=300)
+    with st.expander("See Academic Learning Theories Output"):
+        academic_learning_theories_output = process_content_with_custom_prompt(content, academic_learning_theories_prompt_text)
+        st.write_stream(academic_learning_theories_output)
 
-    low_level_summary = condensed_summary_cog_low_qa(low_level_qa_output)
-    st.text_area("Low Level Summary", value=low_level_summary, height=300)
+    with st.expander("See Grammar and Spelling Output"):
+        grammar_and_spelling_output = process_content_with_custom_prompt(content, grammar_and_spelling_prompt_text)
+        st.write_stream(grammar_and_spelling_output)
 
-    final_output_content = final_output(high_level_summary, low_level_summary)
-    st.text_area("Final Output Content", value=final_output_content, height=300)
+    with st.expander("See Theme Consistency Output"):
+        theme_consistency_output = process_content_with_custom_prompt(content, theme_consistency_prompt_text)
+        st.write_stream(theme_consistency_output)
 
+    with st.expander("See Completeness Output"):
+        completeness_output = process_content_with_custom_prompt(content, completeness_prompt_text)
+        st.write_stream(completeness_output)
 
-        
-        
-        
+    with st.expander("See Summary Output"):
+        summarize_output = process_content_with_custom_prompt(content, summarize_prompt_text)
+        st.write_stream(summarize_output)
+
