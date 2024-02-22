@@ -96,39 +96,47 @@ if st.button("Save Prompts"):
         yaml.dump(prompts, file)
 
 if st.button("Process Content"):
+
+    st.text("Cognitively High-Level QA")
     # Process each area with the customized prompt
     with st.expander("See DepEd Standards Output"):
         deped_standards_output = process_content_with_custom_prompt(content, deped_standards_prompt_text)
-        st.write_stream(deped_standards_output)
+        deped_standards_output_full = st.write_stream(deped_standards_output)
 
     with st.expander("See Class Builder Standards Output"):
         class_builder_standards_output = process_content_with_custom_prompt(content, class_builder_standards_prompt_text)
-        st.write_stream(class_builder_standards_output)
+        class_builder_standards_output_full = st.write_stream(class_builder_standards_output)
 
     with st.expander("See Academic Learning Theories Output"):
         academic_learning_theories_output = process_content_with_custom_prompt(content, academic_learning_theories_prompt_text)
-        st.write_stream(academic_learning_theories_output)
+        academic_learning_theories_output_full = st.write_stream(academic_learning_theories_output)
+    
+    st.text("Cognitively Low-Level QA")
 
     with st.expander("See Grammar and Spelling Output"):
         grammar_and_spelling_output = process_content_with_custom_prompt(content, grammar_and_spelling_prompt_text)
-        st.write_stream(grammar_and_spelling_output)
+        grammar_and_spelling_output_full = st.write_stream(grammar_and_spelling_output)
 
     with st.expander("See Theme Consistency Output"):
         theme_consistency_output = process_content_with_custom_prompt(content, theme_consistency_prompt_text)
-        st.write_stream(theme_consistency_output)
+        theme_consistency_output_full = st.write_stream(theme_consistency_output)
 
     with st.expander("See Completeness Output"):
         completeness_output = process_content_with_custom_prompt(content, completeness_prompt_text)
-        st.write_stream(completeness_output)
+        completeness_output_full = st.write_stream(completeness_output)
+
+    st.text("Summaries of Cognitively High-Level and Cognitively Low-Level QA")
 
     with st.expander("See Summary Output - Cog High"):
-        summarize_output_high_cog = process_content_with_custom_prompt(f"DepEd Standards Output:\n{deped_standards_output}\nClass Builder Standards Output:\n{class_builder_standards_output}\nAcademic Learning Theories Output:\n{academic_learning_theories_output}", summarize_prompt_text)
-        st.write_stream(summarize_output_high_cog)
+        summarize_output_high_cog_output = process_content_with_custom_prompt(f"DepEd Standards Output:\n{deped_standards_output_full}\nClass Builder Standards Output:\n{class_builder_standards_output_full}\nAcademic Learning Theories Output:\n{academic_learning_theories_output_full}", summarize_prompt_text)
+        summarize_output_high_cog_output_full = st.write_stream(summarize_output_high_cog_output)
 
     with st.expander("See Summary Output - Cog Low"):
-        summarize_output_low_cog = process_content_with_custom_prompt(f"Grammar and Spelling Output:\n{grammar_and_spelling_output}\nTheme Consistency Output:\n{theme_consistency_output}\nCompleteness Output:\n{completeness_output}", summarize_prompt_text)
-        st.write_stream(summarize_output_low_cog)
+        summarize_output_low_cog_output = process_content_with_custom_prompt(f"Grammar and Spelling Output:\n{grammar_and_spelling_output_full}\nTheme Consistency Output:\n{theme_consistency_output_full}\nCompleteness Output:\n{completeness_output_full}", summarize_prompt_text)
+        summarize_output_low_cog_output_full = st.write_stream(summarize_output_low_cog_output)
+
+    st.text("Proposed Final Output Based on Summaries")
 
     with st.expander("See Final Output"):
-        final_output = process_content_with_custom_prompt(summarize_output_high_cog + summarize_output_low_cog + content, final_prompt_text)
+        final_output = process_content_with_custom_prompt(f"Cognitively High QA Summary:\n{summarize_output_high_cog_output_full}\nCognitively Low QA Summary:\n{summarize_output_low_cog_output_full}\nContent:\n{content}, final_prompt_text)
         st.write_stream(final_output)

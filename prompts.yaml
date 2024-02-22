@@ -1,103 +1,52 @@
-academic_learning_theories_prompt_text: 'Review {input_text} to assess the incorporation
-  and effective use of teaching strategies that align with the Class Builder Manual
-  and the MATATAG Framework''s recommendations for enhancing mathematical proficiency.
-  Evaluate the lesson plan''s integration of Inquiry-Based Learning, Direct Instruction,
-  Collaborative Learning, Discovery Learning, and the Concrete-Pictorial-Abstract
-  approach, ensuring these methods are utilized to foster active engagement, deeper
-  conceptual understanding, and cognitive development among students. Specifically,
-  analyze how these pedagogical approaches support the development of the five facets
-  of mathematical proficiency: conceptual understanding, procedural fluency, strategic
-  competence, adaptive reasoning, and productive disposition. Consider the lesson''s
-  effectiveness in promoting an inquiry-driven learning environment that encourages
-  students to explore, question, and apply mathematical concepts in meaningful contexts.
-  Reflect on the use of collaborative tasks that facilitate peer learning and the
-  application of concrete, pictorial, and abstract representations to scaffold students''
-  understanding of mathematical concepts, fostering both individual and collective
-  mathematical reasoning and problem-solving capabilities.'
-class_builder_standards_prompt_text: Assess {input_text} for its structural compliance
-  and pedagogical soundness according to effective lesson planning principles, closely
-  examining its alignment with the Class Builder Content Creation Manual and DepEd's
-  guidelines. Ensure the lesson plan includes comprehensive objectives that are SMART
-  (Specific, Measurable, Achievable, Relevant, and Time-bound), engaging content that
-  aligns with DepEd's learning competencies, and detailed learning activities that
-  foster active engagement, critical thinking, and practical application. Evaluate
-  the inclusion of varied assessment strategies that effectively measure student learning
-  and provide feedback for future instruction. Confirm that the lesson plan incorporates
-  pedagogical strategies recommended by DepEd, such as differentiated instruction,
-  formative assessment practices, and the integration of ICT to enhance learning.
-  Additionally, assess the lesson plan's ability to maintain a coherent instructional
-  flow, from introduction to closure, and its support for the instructional needs
-  of diverse learners, ensuring it fosters an inclusive learning environment.
-completeness_prompt_text: Verify the completeness of {input_text}, ensuring it encompasses
-  all essential components for an effective learning experience as outlined in the
-  Class Builder Content Creation Manual and aligns with the DepEd curriculum. Assess
-  the presence and quality of a clear and measurable objective, content that is accurately
-  aligned with the curriculum guide, and engaging motivation activities that activate
-  prior knowledge and interest. Evaluate the lesson's presentation for clarity, accuracy,
-  and the ability to foster active learning, as well as the inclusion of varied practice
-  exercises that cater to different learning styles and promote collaboration. Confirm
-  that thoughtful exit activities are designed to consolidate learning and encourage
-  reflection on the application of concepts in real-life contexts. Reflect on the
-  lesson's adherence to constructive alignment, ensuring that objectives, instructional
-  strategies, and assessments are cohesively integrated to support the achievement
-  of learning outcomes. Additionally, assess the lesson plan's support for diverse
-  learners through differentiated instruction, scaffolding, and the provision of feedback
-  opportunities.
-deped_standards_prompt_text: 'Evaluate {input_text} within the context of the DepEd
-  MATATAG curriculum''s emphasis on mathematical proficiency. Assess how well the
-  lesson develops the five key facets of mathematical understanding: conceptual understanding,
-  procedural fluency, strategic competence, adaptive reasoning, and productive disposition.
-  Determine the lesson''s effectiveness in fostering a positive disposition towards
-  mathematics, incorporating 21st-century skills such as critical thinking, creativity,
-  collaboration, and communication. Highlight how the lesson plan integrates essential
-  learning competencies, aligning with constructivist approaches, experiential and
-  situated learning, and socio-cultural theory. Reflect on how the lesson supports
-  the development of numeracy and problem-solving skills, engages learners in meaningful
-  mathematical discourse, and uses appropriate resources and technologies to enhance
-  learning. Additionally, consider the lesson''s alignment with the MATATAG curriculum''s
-  goals of developing critical thinkers and proficient problem solvers equipped for
-  the 21st century.'
-final_prompt_text: '{input_text}
+academic_learning_theories_prompt_text: 'Review {input_text} to assess the use of
+  Inquiry-Based, Direct Instruction, Collaborative, Discovery Learning, and Concrete-Pictorial-Abstract
+  approaches. Focus on fostering engagement, understanding, and development in line
+  with mathematical proficiency facets. Reflect on inquiry-driven and collaborative
+  methods for applying concepts.
 
 
-  Re-write the content based on the summaries above it.'
-grammar_and_spelling_prompt_text: 'Examine {input_text} for language precision, grammar,
-  spelling, and clarity, ensuring adherence to the Class Builder Manual''s language
-  guidelines for creating developmentally appropriate materials. Assess the lesson
-  plan''s use of vocabulary suitable for Grade 4 learners, the effective definition
-  of complex terms, and the utilization of an engaging active voice. Confirm the logical
-  progression of concepts, clarity of transitions between sections, and grammatical
-  accuracy. Evaluate the lesson plan''s compliance with the following specific language
-  guidelines: avoidance of unnecessarily complex terms, clear explanation of any used
-  jargon, maintenance of grammatical accuracy free from spelling errors, and the use
-  of simple language and explanations. Additionally, verify the organization of text
-  into manageable sections with clear headings and subheadings, ensuring content is
-  accessible and understandable for learners at the intermediate grade levels. Reflect
-  on the incorporation of key terms consistently throughout the material to support
-  learning and avoid confusion.'
-summarize_prompt_text: Provide a comprehensive summary of {input_text}'s educational
-  effectiveness, focusing on its alignment with the DepEd MATATAG curriculum and the
-  principles outlined in the Class Builder Content Creation Manual. Highlight the
-  successful integration of effective teaching strategies such as Inquiry-Based Learning,
-  Direct Instruction, Collaborative Learning, Discovery Learning, and the Concrete-Pictorial-Abstract
-  approach, and their impact on active learning and deepening conceptual understanding.
-  Discuss how the lesson plan addresses the development of 21st-century skills, including
-  critical thinking, creativity, collaboration, and communication, and its effectiveness
-  in preparing learners for future challenges. Identify areas for enhancement, suggesting
-  improvements that could make the lesson more engaging, inclusive, or pedagogically
-  sound. Emphasize the lesson's adherence to the guiding principles of experiential
-  and situated learning, reflective learning, constructivism, and socio-cultural theories,
-  and how these principles support the cognitive development of students. Reflect
-  on the lesson's thematic consistency, completeness, and its ability to foster a
-  positive mathematical disposition among learners. Finally, assess the constructive
-  alignment across learning objectives, instructional strategies, and assessment tasks,
-  and suggest ways to enhance this alignment for better learning outcomes.
-theme_consistency_prompt_text: "Analyze {input_text} for thematic focus and consistency,\
-  \ ensuring that all components of the lesson plan\u2014objectives, content, learning\
-  \ activities, and assessments\u2014cohesively support the central theme. Assess\
-  \ how the lesson's thematic elements, including visual design (colors, fonts, backgrounds)\
-  \ and instructional content (examples, exercises, real-world applications), align\
-  \ with the overarching educational goals outlined in the DepEd's MATATAG curriculum\
-  \ and the Class Builder Manual's guidelines. Evaluate the lesson's effectiveness\
-  \ in integrating the theme across various elements to enhance the learning experience,\
-  \ making the content relatable and engaging for students."
+  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  of feedback. There is no need to rephrase or summarize the lesson plan before giving
+  feedback. Do not re-rewrite the lesson plan. '
+class_builder_standards_prompt_text: 'Assess {input_text} for alignment with SMART
+  objectives, DepEd competencies, and engagement strategies. Check for varied assessments,
+  differentiated instruction, ICT integration, and support for diverse learners with
+  a coherent flow.
+
+
+  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  of feedback. There is no need to rephrase or summarize the lesson plan before giving
+  feedback. Do not re-rewrite the lesson plan. '
+completeness_prompt_text: 'Ensure {input_text} includes objectives, aligned content,
+  motivation activities, practice exercises, and reflective exit activities. Verify
+  clarity, active learning support, and constructive alignment with differentiation
+  and feedback.
+
+
+  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  of feedback. There is no need to rephrase or summarize the lesson plan before giving
+  feedback. Do not re-rewrite the lesson plan. '
+deped_standards_prompt_text: "Evaluate {input_text} against DepEd MATATAG curriculum\
+  \ for mathematical proficiency, including conceptual understanding and 21st-century\
+  \ skills. Reflect on discourse, resource use, and problem-solving engagement. \n\
+  \nOnly give very concise and succinct feedback. Limit yourself to 2 short paragraphs\
+  \ of feedback. There is no need to rephrase or summarize the lesson plan before\
+  \ giving feedback. Do not re-rewrite the lesson plan. "
+final_prompt_text: "{input_text} \n\nRe-write content  based on summaries:"
+grammar_and_spelling_prompt_text: 'Check {input_text} for language accuracy, suitability
+  for Grade 4, and clarity. Ensure logical progression, grammatical correctness, and
+  organized text with clear sections.
+
+
+  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  of feedback. There is no need to rephrase or summarize the lesson plan before giving
+  feedback. Do not re-rewrite the lesson plan. '
+summarize_prompt_text: "Provide a concise summary of \n\n{input_text}"
+theme_consistency_prompt_text: 'Analyze {input_text} for thematic consistency across
+  objectives, content, and assessments. Assess theme integration for enhanced engagement
+  and alignment with educational goals.
+
+
+  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  of feedback. There is no need to rephrase or summarize the lesson plan before giving
+  feedback. Do not re-rewrite the lesson plan. '
