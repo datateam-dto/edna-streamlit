@@ -65,5 +65,4 @@ jobs:
           app-name: 'gbfflow'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_33B25CA0330E43A3B411A8C5A512F38E }}
-          startup-command: 'streamlit run app.py --server.port 8000 --server.address 0.0.0.0' # Specify your startup command here
 
