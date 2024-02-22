@@ -63,7 +63,7 @@ def process_content_with_custom_prompt(content, custom_prompt_template):
 # Streamlit app UI
 st.title("QA Flow Processor with Customizable Prompts")
 st.image('qa-flow.png')
-content = st.text_area("Content", "Enter your content here")
+content = st.text_area("Content", "Enter your content here", height=400)
 
 with st.expander("See and Modify Prompts"):
     try:

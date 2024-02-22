@@ -5,7 +5,7 @@ academic_learning_theories_prompt_text: 'Review {input_text} to assess the use o
   methods for applying concepts.
 
 
-  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
   of feedback. There is no need to rephrase or summarize the lesson plan before giving
   feedback. Do not re-rewrite the lesson plan. '
 class_builder_standards_prompt_text: 'Assess {input_text} for alignment with SMART
@@ -14,7 +14,7 @@ class_builder_standards_prompt_text: 'Assess {input_text} for alignment with SMA
   a coherent flow.
 
 
-  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
   of feedback. There is no need to rephrase or summarize the lesson plan before giving
   feedback. Do not re-rewrite the lesson plan. '
 completeness_prompt_text: 'Ensure {input_text} includes objectives, aligned content,
@@ -23,30 +23,33 @@ completeness_prompt_text: 'Ensure {input_text} includes objectives, aligned cont
   and feedback.
 
 
-  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
   of feedback. There is no need to rephrase or summarize the lesson plan before giving
   feedback. Do not re-rewrite the lesson plan. '
 deped_standards_prompt_text: "Evaluate {input_text} against DepEd MATATAG curriculum\
   \ for mathematical proficiency, including conceptual understanding and 21st-century\
   \ skills. Reflect on discourse, resource use, and problem-solving engagement. \n\
-  \nOnly give very concise and succinct feedback. Limit yourself to 2 short paragraphs\
+  \nOnly give very concise and succinct feedback. Limit yourself to 1 short paragraph\
   \ of feedback. There is no need to rephrase or summarize the lesson plan before\
   \ giving feedback. Do not re-rewrite the lesson plan. "
-final_prompt_text: "{input_text} \n\nRe-write content  based on summaries:"
+final_prompt_text: "{input_text} \n\nGiven the cognitively high-level QA summary and\
+  \ the cognitively low-level QA summary. Re-write the lesson plan under content such\
+  \ that they are aligned to the feedback outlined in the QA summaries."
 grammar_and_spelling_prompt_text: 'Check {input_text} for language accuracy, suitability
   for Grade 4, and clarity. Ensure logical progression, grammatical correctness, and
   organized text with clear sections.
 
 
-  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
   of feedback. There is no need to rephrase or summarize the lesson plan before giving
   feedback. Do not re-rewrite the lesson plan. '
-summarize_prompt_text: "Provide a concise summary of \n\n{input_text}"
+summarize_prompt_text: "Provide a succinct and concise 1 paragraph summary of \n\n\
+  {input_text}"
 theme_consistency_prompt_text: 'Analyze {input_text} for thematic consistency across
   objectives, content, and assessments. Assess theme integration for enhanced engagement
   and alignment with educational goals.
 
 
-  Only give very concise and succinct feedback. Limit yourself to 2 short paragraphs
+  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
   of feedback. There is no need to rephrase or summarize the lesson plan before giving
   feedback. Do not re-rewrite the lesson plan. '
