@@ -138,5 +138,5 @@ if st.button("Process Content"):
     st.text("Proposed Final Output Based on Summaries")
 
     with st.expander("See Final Output"):
-        final_output = process_content_with_custom_prompt(f"Cognitively High QA Summary:\n{summarize_output_high_cog_output_full}\nCognitively Low QA Summary:\n{summarize_output_low_cog_output_full}\nContent:\n{content}, final_prompt_text)
+        final_output = process_content_with_custom_prompt(f"Cognitively High QA Summary:\n{summarize_output_high_cog_output_full}\nCognitively Low QA Summary:\n{summarize_output_low_cog_output_full}\nContent:\n{content}", final_prompt_text)
         st.write_stream(final_output)
