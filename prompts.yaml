@@ -1,55 +1,15 @@
-academic_learning_theories_prompt_text: 'Review {input_text} to assess the use of
-  Inquiry-Based, Direct Instruction, Collaborative, Discovery Learning, and Concrete-Pictorial-Abstract
-  approaches. Focus on fostering engagement, understanding, and development in line
-  with mathematical proficiency facets. Reflect on inquiry-driven and collaborative
-  methods for applying concepts.
+preprocess_prompt_1_text: "Evaluate the teaching strategies utilized in {input_text}. The teaching strategies to assess include:\n\n1) Experiential and Situated Learning\n2) Reflective Learning\n3) Constructivism\n4) Collaborative Learning\n5) Guided Instruction (Incorporating Socio-Cultural Theory and Developmental Stages of Learning)\n6) Discovery Learning or Inquiry-Based Learning\n7) Direct Instruction\n8) Concrete-Pictorial-Abstract Approach\n9) George Polya's Four-Step Problem-Solving Method\n10) Socratic Questioning\n\nProvide an analysis on the application of these strategies within the given text. Provide feedback concisely in one short paragraph without summarizing or rephrasing the lesson plan."
 
+preprocess_prompt_2_text: "Analyze {input_text} for its alignment with SMART objectives, DepEd competencies, and engagement strategies. Ensure the analysis checks for varied assessments, differentiated instruction, ICT integration, and support for diverse learners, all within a coherent flow. Provide feedback concisely in one short paragraph without summarizing or rephrasing the lesson plan."
 
-  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
-  of feedback. There is no need to rephrase or summarize the lesson plan before giving
-  feedback. Do not re-rewrite the lesson plan. '
-class_builder_standards_prompt_text: 'Assess {input_text} for alignment with SMART
-  objectives, DepEd competencies, and engagement strategies. Check for varied assessments,
-  differentiated instruction, ICT integration, and support for diverse learners with
-  a coherent flow.
+preprocess_prompt_3_text: "Review {input_text} to ensure inclusion of essential components:\n\n1. Title Slide ↔ Content: Accurate representation of the specific subject and lesson.\n2. Objectives ↔ Objectives: Clear goals for student achievements by lesson’s end.\n3. Motivation Warm Up and Review ↔ Procedure: Activation of prior knowledge and connection to new lesson.\n4. Transition Slides ↔ Procedure: Seamless progression into main lesson content.\n5. Main Lesson Presentation ↔ Procedure: Thematic presentation fostering student engagement and skill development.\n6. Sample Practice ↔ Procedure: Thematic activities for skill application.\n7. Practice Exercises ↔ Procedure: Collaborative practice of learned skills.\n8. Independent Work ↔ Procedure: Tasks reinforcing mastery and application.\n9. Application ↔ Procedure: Discussion on real-world skill relevance.\nGeneralization ↔ Procedure: Summary of key points.\nEvaluation ↔ Procedure: Assessments aligned with objectives.\nExit Activity ↔ Remarks, Reflection: Lesson conclusion promoting reflection.\n\nProvide concise feedback in one paragraph without summarizing or rewriting the lesson plan."
 
+preprocess_prompt_4_text: "Extract all questions from {input_text} and list them."
 
-  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
-  of feedback. There is no need to rephrase or summarize the lesson plan before giving
-  feedback. Do not re-rewrite the lesson plan. '
-completeness_prompt_text: 'Ensure {input_text} includes objectives, aligned content,
-  motivation activities, practice exercises, and reflective exit activities. Verify
-  clarity, active learning support, and constructive alignment with differentiation
-  and feedback.
+preprocess_prompt_5_text: "Extract all instructions from {input_text} and list them."
 
+preprocess_prompt_6_text: "Design a 10-item quiz based on the content of {input_text}, including brief explanations for both correct and incorrect answers."
 
-  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
-  of feedback. There is no need to rephrase or summarize the lesson plan before giving
-  feedback. Do not re-rewrite the lesson plan. '
-deped_standards_prompt_text: "Evaluate {input_text} against DepEd MATATAG curriculum\
-  \ for mathematical proficiency, including conceptual understanding and 21st-century\
-  \ skills. Reflect on discourse, resource use, and problem-solving engagement. \n\
-  \nOnly give very concise and succinct feedback. Limit yourself to 1 short paragraph\
-  \ of feedback. There is no need to rephrase or summarize the lesson plan before\
-  \ giving feedback. Do not re-rewrite the lesson plan. "
-final_prompt_text: "{input_text} \n\nGiven the cognitively high-level QA summary and\
-  \ the cognitively low-level QA summary. Re-write the lesson plan under content such\
-  \ that they are aligned to the feedback outlined in the QA summaries."
-grammar_and_spelling_prompt_text: 'Check {input_text} for language accuracy, suitability
-  for Grade 4, and clarity. Ensure logical progression, grammatical correctness, and
-  organized text with clear sections.
+chain_output_1_text: "Use this format to consolidate the list of questions and list of instructions:\n{input_text}\n1. Component\n• Questions:\n• Instructions:\n\n2. Component\n• Questions:\n• Instructions:"
 
-
-  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
-  of feedback. There is no need to rephrase or summarize the lesson plan before giving
-  feedback. Do not re-rewrite the lesson plan. '
-summarize_prompt_text: "Provide a succinct and concise 1 paragraph summary of \n\n\
-  {input_text}"
-theme_consistency_prompt_text: 'Analyze {input_text} for thematic consistency across
-  objectives, content, and assessments. Assess theme integration for enhanced engagement
-  and alignment with educational goals.
-
-
-  Only give very concise and succinct feedback. Limit yourself to 1 short paragraph
-  of feedback. There is no need to rephrase or summarize the lesson plan before giving
-  feedback. Do not re-rewrite the lesson plan. '
+chain_output_2_text: "Offer a brief, one-paragraph summary of {input_text} for a concise encapsulation."
