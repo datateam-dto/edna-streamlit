@@ -7,8 +7,7 @@ import sys
 import os
 
 # Set the path as environment variable
-os.chdir("../apps/")
-sys.path.append("../apps/")
+sys.path.append("/mount/src/gbfflow-streamlit/apps")
 
 # Internal file imports
 from extract import extract_text
