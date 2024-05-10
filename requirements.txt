@@ -8,3 +8,5 @@ tiktoken
 streamlit-ext
 PyPDF2==3.0.1
 pysqlite3-binary
+opencv-python-headless
+camelot-py

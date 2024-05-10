@@ -29,6 +29,10 @@ from streamlit_chat import message
 from langchain import PromptTemplate
 import tempfile
 
+
+import base64 # byte object into a pdf file 
+import camelot as cam # extracting tables from PDFs 
+
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
 openai_api_key = st.secrets["OPENAI_API_KEY"]
@@ -92,18 +96,32 @@ def qa_file(filepath):
                     message(st.session_state["past"][i], is_user=True, key=str(i) + '_user', avatar_style="big-smile")
                     message(st.session_state["generated"][i], key=str(i),avatar_style="initials", seed = "EDNA")
 
+def extract_text(_file):
+    """
+        :param file: the PDF file to extract
+    """
+    content = ""
+    reader = PdfReader(_file)
+    number_of_pages = len(reader.pages)
+
+    # Scrape text from multiple pages
+    for i in range(number_of_pages):
+        page = reader.pages[i]
+        text = page.extract_text()
+        content = content + text
+
+    return content
+
 def main():
     # Start of streamlit application
     st.title("Lesson Plan QA Bot")
 
     # Intitialization
     st.header("File upload")
-    uploaded_txt_file = st.file_uploader("Choose a file (docx, txt)", type=["doc","docx","txt"], help="file to be parsed")
-    if uploaded_txt_file is not None :
-                with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
-                    tmp_file.write(uploaded_txt_file.getvalue())
-                    tmp_file_path = tmp_file.name
-                    qa_file(tmp_file_path)
+    uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
+    if uploaded_file is not None :
+        content = extract_text(uploaded_file)
+        st.markdown(content)
 
 if __name__ == "__main__":
  
