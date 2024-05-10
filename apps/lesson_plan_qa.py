@@ -7,7 +7,7 @@ import sys
 import os
 
 # Set the path as environment variable
-os.environ['PATH'] = '/apps/'
+os.environ['PATH'] = 'apps/'
 
 # Internal file imports
 from extract import extract_text
