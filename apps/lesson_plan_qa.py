@@ -32,9 +32,6 @@ import tempfile
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
 openai_api_key = st.secrets["OPENAI_API_KEY"]
-llm = OpenAI(temperature=0.1)
-openai.Model.list()
-
 
 def qa_file(filepath):
     
