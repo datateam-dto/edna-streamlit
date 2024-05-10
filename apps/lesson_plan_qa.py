@@ -9,11 +9,6 @@ import os
 # Set the path as environment variable
 sys.path.append("/mount/src/gbfflow-streamlit/apps")
 
-# Internal file imports
-from extract import extract_text
-
-# from qa import search_qa
-from chat_pdf import chat_with_pdf
 
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
