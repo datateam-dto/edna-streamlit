@@ -5,6 +5,7 @@ from PyPDF2 import PdfReader
 import openai
 import sys 
 import os
+import pysqlite3
 
 # Set the path as environment variable
 sys.path.append("/mount/src/gbfflow-streamlit/apps")
