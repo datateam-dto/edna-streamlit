@@ -8,7 +8,7 @@ import os
 import pysqlite3
 
 # Set the path as environment variable
-sys.path.append("/mount/src/gbfflow-streamlit/apps")
+#sys.path.append("/mount/src/edna-streamlit/apps")
 
 
 from langchain.document_loaders import TextLoader
@@ -98,7 +98,7 @@ def main():
 
     # Intitialization
     st.header("File upload")
-    uploaded_txt_file = st.file_uploader("Choose a file (docx, txt)", type="pdf", help="file to be parsed")
+    uploaded_txt_file = st.file_uploader("Choose a file (docx, txt)", type=["doc","docx","txt"], help="file to be parsed")
     if uploaded_txt_file is not None :
                 with tempfile.NamedTemporaryFile(delete=False) as tmp_file:
                     tmp_file.write(uploaded_txt_file.getvalue())
