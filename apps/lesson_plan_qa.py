@@ -4,14 +4,16 @@ from streamlit_chat import message
 from PyPDF2 import PdfReader
 import openai
 import sys 
+import os
 
+# Set the path as environment variable
+os.environ['PATH'] = '/apps/'
 
 # Internal file imports
 from extract import extract_text
-from embeddings import create_embeddings
-from store import store_embeddings
+
 # from qa import search_qa
-from chat import chat_with_pdf
+from chat_pdf import chat_with_pdf
 
 from langchain.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
