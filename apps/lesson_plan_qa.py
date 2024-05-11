@@ -26,8 +26,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from streamlit_chat import message
 from langchain import PromptTemplate
-import st-btn-select
-
+import st_btn_select
 import tempfile
 
 
