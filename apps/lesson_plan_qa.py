@@ -137,8 +137,8 @@ def main():
         output_string = StringIO()
         html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
         content = extract_text(uploaded_file)
-        md_text = convert_to_markdown(content)
-        st.markdown(content)
+        #md_text = convert_to_markdown(content)
+       # st.markdown(content)
         st.markdown(html_output)
         #qa_file(content)
 
