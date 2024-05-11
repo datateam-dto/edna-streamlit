@@ -5,6 +5,7 @@ import openai
 import sys 
 import os
 import pysqlite3
+from io import StringIO
 
 # Set the path as environment variable
 #sys.path.append("/mount/src/edna-streamlit/apps")
@@ -29,6 +30,9 @@ from langchain import PromptTemplate
 import st_btn_select
 import tempfile
 from pdfminer.high_level import extract_text
+from pdfminer.high_level import extract_text_to_fp
+from pdfminer.layout import LAParams
+
 
 
 
@@ -130,9 +134,12 @@ def main():
     st.header("File upload")
     uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
+        output_string = StringIO()
+        html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
         content = extract_text(uploaded_file)
         md_text = convert_to_markdown(content)
-        st.markdown(md_text)
+        st.markdown(content)
+        st.markdown(html_output)
         #qa_file(content)
 
 if __name__ == "__main__":
