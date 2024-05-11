@@ -1,6 +1,5 @@
 # External libraries
 import streamlit as st
-from streamlit_chat import message
 from PyPDF2 import PdfReader
 import openai
 import sys 
@@ -27,6 +26,8 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
 from streamlit_chat import message
 from langchain import PromptTemplate
+import st-btn-select
+
 import tempfile
 
 
@@ -37,11 +38,11 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
-def qa_file(filepath):
+def qa_file(data):
     
     if 'chain' not in st.session_state:
-        loader = TextLoader(file_path=filepath)
-        data = loader.load()
+        #loader = TextLoader(file_path=filepath)
+        #data = loader.load()
         
         text_splitter = CharacterTextSplitter(chunk_size = 1000, chunk_overlap = 100,separator="?")
         
@@ -122,6 +123,7 @@ def main():
     if uploaded_file is not None :
         content = extract_text(uploaded_file)
         st.markdown(content)
+        qa_file(content)
 
 if __name__ == "__main__":
  
