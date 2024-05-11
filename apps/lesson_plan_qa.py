@@ -28,6 +28,8 @@ from streamlit_chat import message
 from langchain import PromptTemplate
 import st_btn_select
 import tempfile
+from pdfminer.high_level import extract_text
+
 
 
 import base64 # byte object into a pdf file 
@@ -96,7 +98,7 @@ def qa_file(data):
                     message(st.session_state["past"][i], is_user=True, key=str(i) + '_user', avatar_style="big-smile")
                     message(st.session_state["generated"][i], key=str(i),avatar_style="initials", seed = "EDNA")
 
-def extract_text(_file):
+def extract_text_(_file):
     """
         :param file: the PDF file to extract
     """
@@ -112,6 +114,14 @@ def extract_text(_file):
 
     return content
 
+def convert_to_markdown(text):
+    lines = text.split("\\\\n")
+    for i, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped.isupper() and len(stripped) < 50:
+            lines[i] = f"## {stripped}"
+    return "\\\\n".join(lines)
+
 def main():
     # Start of streamlit application
     st.title("Lesson Plan QA Bot")
@@ -121,8 +131,9 @@ def main():
     uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         content = extract_text(uploaded_file)
-        st.markdown(content)
-        qa_file(content)
+        md_text = convert_to_markdown(content)
+        st.markdown(md_text)
+        #qa_file(content)
 
 if __name__ == "__main__":
  

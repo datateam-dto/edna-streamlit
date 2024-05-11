@@ -11,3 +11,4 @@ pysqlite3-binary
 opencv-python-headless
 camelot-py
 st-btn-select
+pdfminer.six
