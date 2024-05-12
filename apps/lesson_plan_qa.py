@@ -136,8 +136,7 @@ def extract_text_(_file):
 def convert_to_markdown(text):
     markdown = text
     markdown = re.sub(r'^(#+)(.*)', r'\1 \2', markdown, flags=re.MULTILINE)
-    #markdown = re.sub(r'([I|II|III|IV|V|VI|VII]+\.)\s+(.*)', r'# \1 \2', markdown, flags=re.MULTILINE)
-    markdown = re.sub(r'([I|II|III|IV|V|VI|VII]+\.)\s+(.*?)(?=\t|$)', r'# \1 \2', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'([I|II|III|IV|V|VI|VII]+\.)\s+(.*)', r'# \1 \2', markdown, flags=re.MULTILINE)
     # Convert ordered lists
     markdown = re.sub(r'^\s*([a-z]+\.)\s+(.*)\n(.*)', r'## \1 \2 \3', markdown, flags=re.MULTILINE)
     # Convert unordered lists
