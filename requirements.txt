@@ -13,3 +13,4 @@ camelot-py
 st-btn-select
 pdfminer.six
 langchain-experimental
+langchain-openai
