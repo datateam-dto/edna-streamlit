@@ -132,12 +132,10 @@ def extract_text_(_file):
 def convert_to_markdown(text):
     markdown = text
     markdown = re.sub(r'^(#+)(.*)', r'\1 \2', markdown, flags=re.MULTILINE)
-    markdown = re.sub(r'^(I|II|III|IV|V|VI)(.*)', r'# \1', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'^([IVX]+\.)\s+(.*)', r'# \1 \2', markdown, flags=re.MULTILINE)
     # Convert ordered lists
-    markdown = re.sub(r'^([A-Z]+\.)', r'## \1', markdown, flags=re.MULTILINE)
-        # Convert ordered lists
-    markdown = re.sub(r'^\d+\.\s+(.*)', r'1. \1', markdown, flags=re.MULTILINE)
-      # Convert unordered lists
+    markdown = re.sub(r'^([A-Z]+\.)\s+(.*)', r'## \1 \2', markdown, flags=re.MULTILINE)
+    # Convert unordered lists
     markdown = re.sub(r'^\*\s+(.*)', r'- \1', markdown, flags=re.MULTILINE)
     
     return markdown
@@ -156,7 +154,6 @@ def main():
         md_text = convert_to_markdown(content)
         #st.markdown(content)
         st.markdown(md_text)
-        st.text(md_text)
         #qa_file(content)
         #split_text(content)
 
