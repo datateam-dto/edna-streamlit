@@ -33,6 +33,9 @@ from pdfminer.high_level import extract_text
 from pdfminer.high_level import extract_text_to_fp
 from pdfminer.layout import LAParams
 
+from langchain_experimental.text_splitter import SemanticChunker
+from langchain_openai.embeddings import OpenAIEmbeddings
+
 
 
 
@@ -102,6 +105,13 @@ def qa_file(data):
                     message(st.session_state["past"][i], is_user=True, key=str(i) + '_user', avatar_style="big-smile")
                     message(st.session_state["generated"][i], key=str(i),avatar_style="initials", seed = "EDNA")
 
+
+def split_text(text):
+    text_splitter = SemanticChunker(OpenAIEmbeddings())
+    docs = text_splitter.create_documents([text])
+    print(docs[0].page_content)
+    st.text(docs[0].page_content)
+
 def extract_text_(_file):
     """
         :param file: the PDF file to extract
@@ -137,10 +147,11 @@ def main():
         #output_string = StringIO()
         #html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
         content = extract_text_(uploaded_file)
-        md_text = convert_to_markdown(content)
-       # st.markdown(content)
-        st.markdown(md_text)
+        #md_text = convert_to_markdown(content)
+        st.markdown(content)
+        #st.markdown(md_text)
         #qa_file(content)
+        split_text(content)
 
 if __name__ == "__main__":
  
