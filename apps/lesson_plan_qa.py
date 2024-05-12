@@ -155,7 +155,7 @@ def main():
     if uploaded_file is not None :
         #output_string = StringIO()
         #html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
-        extract_table(uploaded_file.path)
+        extract_table(uploaded_file)
         #content = extract_text_(uploaded_file)
         #md_text = convert_to_markdown(content)
         #st.markdown(content)
