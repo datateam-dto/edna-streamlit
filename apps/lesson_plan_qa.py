@@ -128,7 +128,9 @@ def extract_text_(_file):
         content = content + text
 
 def extract_table(pdf):
-    tables = cam.read_pdf(pdf)
+    with open("tmp.pdf", "wb") as file:
+        file.write(pdf.read())
+    tables = cam.read_pdf("tmp.pdf", pages = "all")
     st.write(tables) 
     st.write(tables[0].df)
 
