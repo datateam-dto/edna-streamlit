@@ -153,6 +153,7 @@ def main():
         content = extract_text_(uploaded_file)
         md_text = convert_to_markdown(content)
         #st.markdown(content)
+        st.text(content)
         st.markdown(md_text)
         #qa_file(content)
         #split_text(content)
