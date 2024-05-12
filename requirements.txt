@@ -15,4 +15,3 @@ pdfminer.six
 langchain-experimental
 langchain-openai
 ghostscript
-subprocess
