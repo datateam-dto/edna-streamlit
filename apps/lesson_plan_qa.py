@@ -5,6 +5,7 @@ import openai
 import sys 
 import os
 import pysqlite3
+import re
 #from io import StringIO
 
 # Set the path as environment variable
@@ -129,12 +130,17 @@ def extract_text_(_file):
     return content
 
 def convert_to_markdown(text):
-    lines = text.split("\\\\n")
-    for i, line in enumerate(lines):
-        stripped = line.strip()
-        if stripped.isupper() and len(stripped) < 50:
-            lines[i] = f"## {stripped}"
-    return "\\\\n".join(lines)
+    markdown = text
+    markdown = re.sub(r'^(#+)(.*)', r'\1 \2', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'^(I|II|III|IV|V|VI)(.*)', r'# \1', markdown, flags=re.MULTILINE)
+    # Convert ordered lists
+    markdown = re.sub(r'^([A-Z]+\.)', r'## \1', markdown, flags=re.MULTILINE)
+        # Convert ordered lists
+    markdown = re.sub(r'^\d+\.\s+(.*)', r'1. \1', markdown, flags=re.MULTILINE)
+      # Convert unordered lists
+    markdown = re.sub(r'^\*\s+(.*)', r'- \1', markdown, flags=re.MULTILINE)
+    
+    return markdown
 
 def main():
     # Start of streamlit application
@@ -147,11 +153,12 @@ def main():
         #output_string = StringIO()
         #html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
         content = extract_text_(uploaded_file)
-        #md_text = convert_to_markdown(content)
-        st.markdown(content)
-        #st.markdown(md_text)
+        md_text = convert_to_markdown(content)
+        #st.markdown(content)
+        st.markdown(md_text)
+        st.text(md_text)
         #qa_file(content)
-        split_text(content)
+        #split_text(content)
 
 if __name__ == "__main__":
  
