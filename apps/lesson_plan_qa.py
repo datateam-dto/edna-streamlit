@@ -1,3 +1,5 @@
+!apt get install ghostscript
+
 # External libraries
 import streamlit as st
 from PyPDF2 import PdfReader
@@ -42,10 +44,14 @@ from langchain_openai.embeddings import OpenAIEmbeddings
 
 import base64 # byte object into a pdf file 
 import camelot as cam # extracting tables from PDFs 
+import subprocess
+from subprocess import STDOUT, check_call
 
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
 openai_api_key = st.secrets["OPENAI_API_KEY"]
+
+
 
 def qa_file(data):
     
@@ -127,6 +133,12 @@ def extract_text_(_file):
         text = page.extract_text()
         content = content + text
 
+def gh():
+    proc = subprocess.Popen('apt-get install -y ghostscript', shell=True, stdin=None, stdout=open(os.devnull,'wb'), stderr=STDOUT, executable="/bin/bash")
+
+gh()
+
+
 def extract_table(pdf):
     with open("tmp.pdf", "wb") as file:
         file.write(pdf.read())
@@ -148,6 +160,7 @@ def convert_to_markdown(text):
 def main():
     # Start of streamlit application
     st.title("Lesson Plan QA Bot")
+    gh()
 
     # Intitialization
     st.header("File upload")
