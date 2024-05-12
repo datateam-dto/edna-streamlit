@@ -136,7 +136,6 @@ def extract_text_(_file):
 def gh():
     proc = subprocess.Popen('apt-get install -y ghostscript', shell=True, stdin=None, stdout=open(os.devnull,'wb'), stderr=STDOUT, executable="/bin/bash")
 
-gh()
 
 
 def extract_table(pdf):
