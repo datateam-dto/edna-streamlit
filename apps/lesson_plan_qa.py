@@ -43,9 +43,8 @@ from langchain_openai.embeddings import OpenAIEmbeddings
 
 
 import base64 # byte object into a pdf file 
-import camelot as cam # extracting tables from PDFs 
-import subprocess
-from subprocess import STDOUT, check_call
+#import camelot as cam # extracting tables from PDFs 
+
 
 sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
@@ -133,18 +132,6 @@ def extract_text_(_file):
         text = page.extract_text()
         content = content + text
 
-def gh():
-    proc = subprocess.Popen('apt-get install -y ghostscript', shell=True, stdin=None, stdout=open(os.devnull,'wb'), stderr=STDOUT, executable="/bin/bash")
-
-
-
-def extract_table(pdf):
-    with open("tmp.pdf", "wb") as file:
-        file.write(pdf.read())
-    tables = cam.read_pdf("tmp.pdf", pages = "all")
-    st.write(tables) 
-    st.write(tables[0].df)
-
 def convert_to_markdown(text):
     markdown = text
     markdown = re.sub(r'^(#+)(.*)', r'\1 \2', markdown, flags=re.MULTILINE)
@@ -159,20 +146,20 @@ def convert_to_markdown(text):
 def main():
     # Start of streamlit application
     st.title("Lesson Plan QA Bot")
-    gh()
+
 
     # Intitialization
     st.header("File upload")
     uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
-        #output_string = StringIO()
         #html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
-        extract_table(uploaded_file)
+        content = extract_text(uploaded_file, page_numbers=None, maxpages=0, caching=True, codec='utf-8', laparams=None)
+        #print(text)
         #content = extract_text_(uploaded_file)
-        #md_text = convert_to_markdown(content)
+        md_text = convert_to_markdown(content)
         #st.markdown(content)
         #st.text(content)
-        #st.markdown(md_text)
+        st.markdown(md_text)
         #qa_file(content)
         #split_text(content)
 
