@@ -131,6 +131,7 @@ def extract_text_(_file):
         page = reader.pages[i]
         text = page.extract_text()
         content = content + text
+    return content
 
 def convert_to_markdown(text):
     markdown = text
