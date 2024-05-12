@@ -153,13 +153,13 @@ def main():
     uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         #html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
-        content = extract_text(uploaded_file, page_numbers=None, maxpages=0, caching=True, codec='utf-8', laparams=None)
+        #content = extract_text(uploaded_file, page_numbers=None, maxpages=0, caching=True, codec='utf-8', laparams=None)
         #print(text)
-        #content = extract_text_(uploaded_file)
-        md_text = convert_to_markdown(content)
+        content = extract_text_(uploaded_file)
+        #md_text = convert_to_markdown(content)
         #st.markdown(content)
-        #st.text(content)
-        st.markdown(md_text)
+        st.text(content)
+        #st.markdown(md_text)
         #qa_file(content)
         #split_text(content)
 
