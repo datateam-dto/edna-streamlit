@@ -12,4 +12,4 @@ opencv-python-headless
 camelot-py
 st-btn-select
 pdfminer.six
-langchain-experimenta
+langchain-experimental
