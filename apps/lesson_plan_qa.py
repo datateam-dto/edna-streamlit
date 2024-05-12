@@ -1,4 +1,4 @@
-!apt get install ghostscript
+
 
 # External libraries
 import streamlit as st
