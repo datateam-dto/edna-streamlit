@@ -157,10 +157,9 @@ def main():
         #content = extract_text(uploaded_file, page_numbers=None, maxpages=0, caching=True, codec='utf-8', laparams=None)
         #print(text)
         content = extract_text_(uploaded_file)
-        #md_text = convert_to_markdown(content)
-        st.markdown(content)
+        md_text = convert_to_markdown(content)
+        st.markdown(md_text)
         st.text(content)
-        #st.markdown(md_text)
         #qa_file(content)
         #split_text(content)
 
