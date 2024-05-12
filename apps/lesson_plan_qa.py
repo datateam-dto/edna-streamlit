@@ -127,14 +127,17 @@ def extract_text_(_file):
         text = page.extract_text()
         content = content + text
 
-    return content
+def extract_table(pdf):
+    tables = cam.read_pdf(pdf)
+    st.write(tables) 
+    st.write(tables[0].df)
 
 def convert_to_markdown(text):
     markdown = text
     markdown = re.sub(r'^(#+)(.*)', r'\1 \2', markdown, flags=re.MULTILINE)
     markdown = re.sub(r'([I|II|III|IV|V|VI|VII]+\.)\s+(.*)', r'# \1 \2', markdown, flags=re.MULTILINE)
     # Convert ordered lists
-    markdown = re.sub(r'^\s*([A-H]+\.)\s+(.*)\n(.*)\n\n', r'## \1 \2 \3\n\n', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'^\s*([A-H]+\.)\s+(.*)\n(.*)', r'## \1 \2 \3', markdown, flags=re.MULTILINE)
     # Convert unordered lists
     markdown = re.sub(r'^\*\s+(.*)', r'- \1', markdown, flags=re.MULTILINE)
     
@@ -150,11 +153,12 @@ def main():
     if uploaded_file is not None :
         #output_string = StringIO()
         #html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
-        content = extract_text_(uploaded_file)
-        md_text = convert_to_markdown(content)
+        extract_table(uploaded_file)
+        #content = extract_text_(uploaded_file)
+        #md_text = convert_to_markdown(content)
         #st.markdown(content)
-        st.text(content)
-        st.markdown(md_text)
+        #st.text(content)
+        #st.markdown(md_text)
         #qa_file(content)
         #split_text(content)
 
