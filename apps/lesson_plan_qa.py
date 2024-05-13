@@ -61,7 +61,7 @@ def qa_file(splits):
     if 'chain' not in st.session_state:
         embeddings = OpenAIEmbeddings()
         db = Chroma.from_documents(splits, embeddings)
-        retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
+        retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":10})
         chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.1,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key),
                                                                                 retriever=retriever)
     
@@ -113,7 +113,7 @@ def split_text_semantic(text):
     st.text(docs[0].page_content)
 
 def split_splits_md(md_splits):
-    chunk_size = 800
+    chunk_size = 1000
     chunk_overlap = 30
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     splits = text_splitter.split_documents(md_splits)
