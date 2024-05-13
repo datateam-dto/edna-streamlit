@@ -28,6 +28,7 @@ from langchain.indexes import VectorstoreIndexCreator
 from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import Chroma
+from langchain.vectorstores import DocArrayInMemorySearch
 from streamlit_chat import message
 from langchain import PromptTemplate
 import st_btn_select
@@ -54,6 +55,8 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
+@st.cache_resource(ttl="1h")
+
 
 
 def qa_file(splits):
@@ -61,7 +64,7 @@ def qa_file(splits):
     if 'chain' not in st.session_state:
         embeddings = OpenAIEmbeddings()
         db = Chroma.from_documents(splits, embeddings)
-        retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":10})
+        retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
         chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.1,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key),
                                                                                 retriever=retriever)
     
@@ -114,7 +117,7 @@ def split_text_semantic(text):
 
 def split_splits_md(md_splits):
     chunk_size = 1000
-    chunk_overlap = 30
+    chunk_overlap = 150
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     splits = text_splitter.split_documents(md_splits)
     return splits
@@ -131,7 +134,7 @@ def split_text_markdown(markdown_document):
     ("##", "Part"),]
     markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on, strip_headers=False)
     md_header_splits = markdown_splitter.split_text(markdown_document)
-    st.text(md_header_splits)
+    st.write(md_header_splits)
     splits = split_splits_md(md_header_splits)
     return splits
 
