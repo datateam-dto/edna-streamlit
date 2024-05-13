@@ -113,7 +113,7 @@ def split_text_semantic(text):
     st.text(docs[0].page_content)
 
 def split_splits_md(md_splits):
-    chunk_size = 400
+    chunk_size = 800
     chunk_overlap = 30
     text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
     splits = text_splitter.split_documents(md_splits)
