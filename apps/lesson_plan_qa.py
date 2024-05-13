@@ -38,6 +38,10 @@ from pdfminer.layout import LAParams
 
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai.embeddings import OpenAIEmbeddings
+from langchain_text_splitters import MarkdownHeaderTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+
+
 
 
 
@@ -112,11 +116,19 @@ def qa_file(data):
                     message(st.session_state["generated"][i], key=str(i),avatar_style="initials", seed = "EDNA")
 
 
-def split_text(text):
+def split_text_semantic(text):
     text_splitter = SemanticChunker(OpenAIEmbeddings())
     docs = text_splitter.create_documents([text])
     print(docs[0].page_content)
     st.text(docs[0].page_content)
+
+def split_text_markdown(markdown_document):
+    headers_to_split_on = [
+    ("#", "Section"),
+    ("##", "Part"),]
+    markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+    md_header_splits = markdown_splitter.split_text(markdown_document)
+    st.text(md_header_splits)
 
 def extract_text_(_file):
     """
@@ -159,7 +171,7 @@ def main():
         content = extract_text_(uploaded_file)
         md_text = convert_to_markdown(content)
         st.markdown(md_text)
-        st.text(content)
+        split_text_markdown(md_text)
         #qa_file(content)
         #split_text(content)
 

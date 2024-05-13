@@ -14,4 +14,5 @@ st-btn-select
 pdfminer.six
 langchain-experimental
 langchain-openai
+langchain-text-splitters
 ghostscript
