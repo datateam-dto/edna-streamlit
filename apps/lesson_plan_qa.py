@@ -56,22 +56,12 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
 
-def qa_file(data):
+def qa_file(splits):
     
     if 'chain' not in st.session_state:
-        #loader = TextLoader(file_path=filepath)
-        #data = loader.load()
-        
-        text_splitter = CharacterTextSplitter(chunk_size = 1000, chunk_overlap = 100,separator="\n")
-        
-        print("splitting")
-        texts = text_splitter.split_documents(data)
-            
-            
         embeddings = OpenAIEmbeddings()
-        db = Chroma.from_documents(texts, embeddings)
+        db = Chroma.from_documents(splits, embeddings)
         retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
-        print("splitting")
         chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.1,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key),
                                                                                 retriever=retriever)
     
@@ -126,9 +116,15 @@ def split_text_markdown(markdown_document):
     headers_to_split_on = [
     ("#", "Section"),
     ("##", "Part"),]
-    markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+    markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on, strip_headers=False)
     md_header_splits = markdown_splitter.split_text(markdown_document)
     st.text(md_header_splits)
+
+    chunk_size = 200
+    chunk_overlap = 30
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=chunk_size, chunk_overlap=chunk_overlap)
+    splits = text_splitter.split_documents(md_header_splits)
+    return splits
 
 def extract_text_(_file):
     """
@@ -171,8 +167,8 @@ def main():
         content = extract_text_(uploaded_file)
         md_text = convert_to_markdown(content)
         st.markdown(md_text)
-        split_text_markdown(md_text)
-        #qa_file(content)
+        splits = split_text_markdown(md_text)
+        qa_file(splits)
         #split_text(content)
 
 if __name__ == "__main__":
