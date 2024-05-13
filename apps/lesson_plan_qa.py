@@ -55,8 +55,6 @@ sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
-@st.cache_resource(ttl="1h")
-
 
 
 def qa_file(splits):
