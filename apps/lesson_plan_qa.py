@@ -110,7 +110,7 @@ def qa_file(splits):
 
     embeddings = OpenAIEmbeddings()
     db = Chroma.from_documents(splits, embeddings)
-    retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":10})
+    retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
     
 
     msgs = StreamlitChatMessageHistory()
@@ -120,7 +120,7 @@ def qa_file(splits):
         model_name="gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.1, streaming=True
         )
     chain = ConversationalRetrievalChain.from_llm(
-            llm, retriever=retriever, memory=memory, verbose=True, chain_type = "stuff")
+            llm, retriever=retriever, memory=memory, verbose=True)
         
     if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
         msgs.clear()
