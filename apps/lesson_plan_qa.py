@@ -105,10 +105,9 @@ def qa_file(splits):
     db = Chroma.from_documents(splits, embeddings)
     retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
     
-   
+    msgs = StreamlitChatMessageHistory()
+    memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
     if 'chain' not in st.session_state:
-
-        memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
             # Setup LLM and QA chain
         llm = ChatOpenAI(
             model = "gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.1, streaming=True
@@ -119,7 +118,7 @@ def qa_file(splits):
         st.write("chain created")
 
     chain = st.session_state['chain']
-    msgs = StreamlitChatMessageHistory()
+   
     if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
             msgs.clear()
             msgs.add_ai_message("How can I help you?")
