@@ -125,6 +125,7 @@ def qa_file(splits):
         chain = ConversationalRetrievalChain.from_llm(
                 llm, retriever=retriever, memory = memory, chain_type="stuff")
         st.session_state['chain'] = chain 
+        st.write("chain created")
 
         with st.chat_message("assistant"):
             #retrieval_handler = PrintRetrievalHandler(st.container())
