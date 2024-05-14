@@ -112,32 +112,32 @@ def qa_file(splits):
     db = Chroma.from_documents(splits, embeddings)
     retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":10})
     
-    if 'chain' not in st.session_state:
-        msgs = StreamlitChatMessageHistory()
-        memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
+
+    msgs = StreamlitChatMessageHistory()
+    memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
         # Setup LLM and QA chain
-        llm = ChatOpenAI(
+    llm = ChatOpenAI(
         model_name="gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.1, streaming=True
         )
-        chain = ConversationalRetrievalChain.from_llm(
+    chain = ConversationalRetrievalChain.from_llm(
             llm, retriever=retriever, memory=memory, verbose=True, chain_type = "stuff")
         
-        if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
-            msgs.clear()
-            msgs.add_ai_message("How can I help you?")
+    if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
+        msgs.clear()
+        msgs.add_ai_message("How can I help you?")
 
-        avatars = {"human": "user", "ai": "assistant"}
-        for msg in msgs.messages:
+    avatars = {"human": "user", "ai": "assistant"}
+    for msg in msgs.messages:
             st.chat_message(avatars[msg.type]).write(msg.content)
-        if user_query := st.chat_input(placeholder="Ask me anything!"):
-            st.chat_message("user").write(user_query)
+    if user_query := st.chat_input(placeholder="Ask me anything!"):
+        st.chat_message("user").write(user_query)
 
-            with st.chat_message("assistant"):
-                retrieval_handler = PrintRetrievalHandler(st.container())
-                stream_handler = StreamHandler(st.empty())
-                response = chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
-                st.write(response)
-        st.session_state['chain'] = chain 
+        with st.chat_message("assistant"):
+            retrieval_handler = PrintRetrievalHandler(st.container())
+            stream_handler = StreamHandler(st.empty())
+            response = chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
+            st.write(response)
+
     
 
 def split_text_semantic(text):
