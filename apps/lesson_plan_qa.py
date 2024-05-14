@@ -105,8 +105,9 @@ def qa_file(splits):
     db = Chroma.from_documents(splits, embeddings)
     retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
     
+    msgs = StreamlitChatMessageHistory()
     if 'chain' not in st.session_state:
-        msgs = StreamlitChatMessageHistory()
+
         memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
             # Setup LLM and QA chain
         llm = ChatOpenAI(
