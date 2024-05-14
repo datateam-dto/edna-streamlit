@@ -63,7 +63,7 @@ def qa_file(splits):
         embeddings = OpenAIEmbeddings()
         db = Chroma.from_documents(splits, embeddings)
         retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
-        chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.1,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key),
+        chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.5,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key),
                                                                                 retriever=retriever)
     
         st.session_state['chain'] = chain 
