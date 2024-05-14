@@ -86,6 +86,12 @@ class PrintRetrievalHandler(BaseCallbackHandler):
     def on_retriever_start(self, serialized: dict, query: str, **kwargs):
         self.status.write(f"**Question:** {query}")
         self.status.update(label=f"**Context Retrieval:** {query}")
+    def on_retriever_end(self, documents, **kwargs):
+            for idx, doc in enumerate(documents):
+                source = os.path.basename(doc.metadata["source"])
+                self.status.write(f"**Document {idx} from {source}**")
+                self.status.markdown(doc.page_content)
+            self.status.update(state="complete")
 
 
 
@@ -141,7 +147,7 @@ def qa_file(splits):
             response = chain.run(user_query, callbacks=[stream_handler, retrieval_handler])
             #response = chain({"question": user_query, "chat_history": st.session_state['history']})
            # st.session_state['history'].append((user_query, response["answer"]))
-            st.write(response)
+            #st.write(response)
 
     
 
