@@ -126,10 +126,10 @@ def qa_file(splits):
         st.chat_message("user").write(user_query)
 
         with st.chat_message("assistant"):
-            retrieval_handler = PrintRetrievalHandler(st.container())
+            #retrieval_handler = PrintRetrievalHandler(st.container())
             stream_handler = StreamHandler(st.empty())
             response = chain.run(user_query, callbacks=[stream_handler])
-            #st.write(response)
+            st.write(response)
 
     
 
