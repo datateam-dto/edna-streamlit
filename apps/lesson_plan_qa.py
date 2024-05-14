@@ -119,7 +119,7 @@ def qa_file(splits):
         llm = ChatOpenAI(
             model = "gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.1, streaming=True
             )
-        chain = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, chain_type="stuff")
+        chain = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, chain_type="stuff", memory=memory)
         st.session_state['chain'] = chain 
         st.write("chain created")
 
@@ -136,11 +136,11 @@ def qa_file(splits):
         st.chat_message("user").write(user_query)
 
         with st.chat_message("assistant"):
-            #retrieval_handler = PrintRetrievalHandler(st.container())
-            #stream_handler = StreamHandler(st.empty())
-            #response = chain.run(user_query, callbacks=[stream_handler])
-            response = chain({"question": user_query, "chat_history": st.session_state['history']})
-            st.session_state['history'].append((user_query, response["answer"]))
+            retrieval_handler = PrintRetrievalHandler(st.container())
+            stream_handler = StreamHandler(st.empty())
+            response = chain.run(user_query, callbacks=[stream_handler, retrieval_handler])
+            #response = chain({"question": user_query, "chat_history": st.session_state['history']})
+           # st.session_state['history'].append((user_query, response["answer"]))
             st.write(response)
 
     
