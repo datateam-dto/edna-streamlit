@@ -102,11 +102,15 @@ def qa_file(splits):
     qa_prompt = ChatPromptTemplate.from_messages( messages )
 
     embeddings = OpenAIEmbeddings()
-    db = Chroma.from_documents(splits, embeddings)
-    retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
+    #db = Chroma.from_documents(splits, embeddings)
+    vectordb = DocArrayInMemorySearch.from_documents(splits, embeddings)
+    retriever = vectordb.as_retriever(search_type="mmr", search_kwargs={"k": 5, "fetch_k": 10})
+
     
     msgs = StreamlitChatMessageHistory()
     memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
+
+    
 
     if 'history' not in st.session_state:
         st.session_state['history'] = []
