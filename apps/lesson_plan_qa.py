@@ -131,8 +131,10 @@ def qa_file(splits):
 
         with st.chat_message("assistant"):
             #retrieval_handler = PrintRetrievalHandler(st.container())
-            stream_handler = StreamHandler(st.empty())
-            response = chain.run(user_query, callbacks=[stream_handler])
+            #stream_handler = StreamHandler(st.empty())
+            #response = chain.run(user_query, callbacks=[stream_handler])
+            response = chain({"question": user_query, "chat_history": st.session_state['history']})
+            st.session_state['history'].append((user_query, response["answer"]))
             st.write(response)
 
     
