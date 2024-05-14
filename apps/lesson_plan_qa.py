@@ -87,13 +87,6 @@ class PrintRetrievalHandler(BaseCallbackHandler):
         self.status.write(f"**Question:** {query}")
         self.status.update(label=f"**Context Retrieval:** {query}")
 
-    def on_retriever_end(self, documents, **kwargs):
-        for idx, doc in enumerate(documents):
-            source = os.path.basename(doc.metadata["source"])
-            self.status.write(f"**Document {idx} from {source}**")
-            self.status.markdown(doc.page_content)
-        self.status.update(state="complete")
-
 
 
 def qa_file(splits):
@@ -120,7 +113,7 @@ def qa_file(splits):
         model_name="gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.1, streaming=True
         )
     chain = ConversationalRetrievalChain.from_llm(
-            llm, retriever=retriever, verbose=True)
+            llm, retriever=retriever, verbose=True, memory = memory)
         
     if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
         msgs.clear()
