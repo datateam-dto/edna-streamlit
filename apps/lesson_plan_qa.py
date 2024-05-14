@@ -82,7 +82,7 @@ def qa_file(splits):
     def conversational_chat(query):
         print("sending q")  
         chain =  st.session_state['chain']
-        result = chain({"question": query, "chat_history": st.session_state['history']})
+        result = chain({"question": query, "chat_history": st.session_state['history'], "prompt": qa_prompt})
         st.session_state['history'].append((query, result["answer"]))
                 
         return result["answer"]
