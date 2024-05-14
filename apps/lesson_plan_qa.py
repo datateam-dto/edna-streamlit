@@ -75,14 +75,14 @@ def qa_file(splits):
         embeddings = OpenAIEmbeddings()
         db = Chroma.from_documents(splits, embeddings)
         retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":15})
-        chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.5,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key, chain_type = "stuff", combine_docs_chain_kwargs={"prompt": qa_prompt},),
-                                                                                retriever=retriever)
+        chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.5,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key),
+                                                                                 chain_type = "stuff",combine_docs_chain_kwargs={"prompt": qa_prompt},verbose=True,retriever=retriever)
     
         st.session_state['chain'] = chain 
     def conversational_chat(query):
         print("sending q")  
         chain =  st.session_state['chain']
-        result = chain({"question": query, "chat_history": st.session_state['history'], "prompt": qa_prompt})
+        result = chain({"question": query, "chat_history": st.session_state['history']})
         st.session_state['history'].append((query, result["answer"]))
                 
         return result["answer"]
