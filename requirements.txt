@@ -16,3 +16,4 @@ langchain-experimental
 langchain-openai
 langchain-text-splitters
 ghostscript
+docarray
