@@ -106,6 +106,15 @@ def qa_file(splits):
     retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
     
     msgs = StreamlitChatMessageHistory()
+    if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
+            msgs.clear()
+            msgs.add_ai_message("How can I help you?")
+
+    avatars = {"human": "user", "ai": "assistant"}
+    for msg in msgs.messages:
+                st.chat_message(avatars[msg.type]).write(msg.content)
+    if user_query := st.chat_input(placeholder="Ask me anything!"):
+            st.chat_message("user").write(user_query)
     if 'chain' not in st.session_state:
 
         memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
@@ -116,22 +125,12 @@ def qa_file(splits):
         chain = ConversationalRetrievalChain.from_llm(
                 llm, retriever=retriever, memory = memory, chain_type="stuff")
         st.session_state['chain'] = chain 
-        
-        if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
-            msgs.clear()
-            msgs.add_ai_message("How can I help you?")
 
-        avatars = {"human": "user", "ai": "assistant"}
-        for msg in msgs.messages:
-                st.chat_message(avatars[msg.type]).write(msg.content)
-        if user_query := st.chat_input(placeholder="Ask me anything!"):
-            st.chat_message("user").write(user_query)
-
-            with st.chat_message("assistant"):
-                #retrieval_handler = PrintRetrievalHandler(st.container())
-                stream_handler = StreamHandler(st.empty())
-                response = chain.run(user_query, callbacks=[stream_handler])
-                st.write(response)
+        with st.chat_message("assistant"):
+            #retrieval_handler = PrintRetrievalHandler(st.container())
+            stream_handler = StreamHandler(st.empty())
+            response = chain.run(user_query, callbacks=[stream_handler])
+            st.write(response)
 
     
 
