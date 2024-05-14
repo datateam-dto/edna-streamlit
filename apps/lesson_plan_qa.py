@@ -136,7 +136,7 @@ def qa_file(splits):
                 retrieval_handler = PrintRetrievalHandler(st.container())
                 stream_handler = StreamHandler(st.empty())
                 response = chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
-    
+                st.write(response)
         st.session_state['chain'] = chain 
     
 
