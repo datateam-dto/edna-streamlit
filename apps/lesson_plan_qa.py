@@ -41,6 +41,8 @@ from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain_text_splitters import MarkdownHeaderTextSplitter
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.prompts import PromptTemplate
+from langchain.prompts import SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate
 
 
 
@@ -58,12 +60,22 @@ openai_api_key = st.secrets["OPENAI_API_KEY"]
 
 
 def qa_file(splits):
+    general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson plan for a course.  
+    The user will provide you with {text} which is a lesson plan for a course.
+    You are tasked to answer questions on the lesson plan pertaining to the teaching strategies involved, adherence to standards, grammar, correctness of concepts, and completeness of parts.
+    You may need to look at the whole Lesson Plan to provide your answers."""
+    general_user_template = "Question:```{question}```"
+    messages = [
+            SystemMessagePromptTemplate.from_template(general_system_template),
+            HumanMessagePromptTemplate.from_template(general_user_template)
+]
+    qa_prompt = ChatPromptTemplate.from_messages( messages )
     
     if 'chain' not in st.session_state:
         embeddings = OpenAIEmbeddings()
         db = Chroma.from_documents(splits, embeddings)
-        retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":5})
-        chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.5,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key),
+        retriever = db.as_retriever(search_type = "similarity", search_kwargs = {"k":15})
+        chain = ConversationalRetrievalChain.from_llm(llm = ChatOpenAI(temperature=0.5,model = 'gpt-4-turbo-2024-04-09', openai_api_key=openai_api_key, chain_type = "stuff", combine_docs_chain_kwargs={"prompt": qa_prompt},),
                                                                                 retriever=retriever)
     
         st.session_state['chain'] = chain 
