@@ -117,10 +117,10 @@ def qa_file(splits):
         memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
         # Setup LLM and QA chain
         llm = ChatOpenAI(
-        model_name="gpt-3.5-turbo", openai_api_key=openai_api_key, temperature=0, streaming=True
+        model_name="gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.1, streaming=True
         )
         chain = ConversationalRetrievalChain.from_llm(
-            llm, retriever=retriever, memory=memory, verbose=True, chain = "stuff")
+            llm, retriever=retriever, memory=memory, verbose=True, chain_type = "stuff")
         
         if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
             msgs.clear()
