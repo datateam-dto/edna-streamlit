@@ -113,7 +113,7 @@ def qa_file(splits):
         model_name="gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.1, streaming=True
         )
     chain = ConversationalRetrievalChain.from_llm(
-            llm, retriever=retriever, verbose=True, memory = memory)
+            llm, retriever=retriever, verbose=True, memory = memory, chain_type="stuff")
         
     if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
         msgs.clear()
@@ -128,7 +128,7 @@ def qa_file(splits):
         with st.chat_message("assistant"):
             retrieval_handler = PrintRetrievalHandler(st.container())
             stream_handler = StreamHandler(st.empty())
-            response = chain.run(user_query, callbacks=[retrieval_handler, stream_handler])
+            response = chain.run(user_query, callbacks=[stream_handler])
             #st.write(response)
 
     
