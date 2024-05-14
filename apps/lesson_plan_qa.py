@@ -107,6 +107,9 @@ def qa_file(splits):
     
     msgs = StreamlitChatMessageHistory()
     memory = ConversationBufferMemory(memory_key="chat_history", chat_memory=msgs, return_messages=True)
+
+    if 'history' not in st.session_state:
+        st.session_state['history'] = []
     if 'chain' not in st.session_state:
             # Setup LLM and QA chain
         llm = ChatOpenAI(
