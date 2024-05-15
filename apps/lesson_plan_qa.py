@@ -109,7 +109,7 @@ def qa_file(splits):
     embeddings = OpenAIEmbeddings()
     #db = Chroma.from_documents(splits, embeddings)
     vectordb = DocArrayInMemorySearch.from_documents(splits, embeddings)
-    retriever = vectordb.as_retriever(search_type="mmr", search_kwargs={"k": 10, "fetch_k": 10})
+    retriever = vectordb.as_retriever(search_type="mmr", search_kwargs={"k": 10, "fetch_k": 20})
 
     
     msgs = StreamlitChatMessageHistory()
