@@ -125,7 +125,7 @@ def qa_file(splits):
         llm = ChatOpenAI(
             model = "gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.2, streaming=True
             )
-        chain = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, chain_type="stuff", memory=memory, combine_docs_chain_kwargs={"prompt": prompt})
+        chain = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, chain_type="stuff", memory=memory, combine_docs_chain_kwargs={"prompt": qa_prompt})
         st.session_state['chain'] = chain 
         st.write("chain created")
 
