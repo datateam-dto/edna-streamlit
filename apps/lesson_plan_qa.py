@@ -93,7 +93,7 @@ class PrintRetrievalHandler(BaseCallbackHandler):
 
 def qa_file(splits):
     general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson plan for a course.  
-    The user will provide you with {input_doc} which is a lesson plan for a course.
+    The user will provide you with a set of documents which is a lesson plan for a course.
     You are tasked to answer questions on the lesson plan pertaining to the teaching strategies involved, adherence to standards, grammar, correctness of concepts, and completeness of parts.
     You may need to look at the whole Lesson Plan to provide your answers."""
     general_user_template = "Question:```{question}```"
