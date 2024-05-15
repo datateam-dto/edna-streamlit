@@ -87,11 +87,7 @@ class PrintRetrievalHandler(BaseCallbackHandler):
         self.status.write(f"**Question:** {query}")
         self.status.update(label=f"**Context Retrieval:** {query}")
     def on_retriever_end(self, documents, **kwargs):
-            for idx, doc in enumerate(documents):
-                source = os.path.basename(doc.metadata["source"])
-                self.status.write(f"**Document {idx} from {source}**")
-                self.status.markdown(doc.page_content)
-            self.status.update(state="complete")
+        self.status.update(state="complete")
 
 
 
