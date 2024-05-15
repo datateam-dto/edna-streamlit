@@ -97,7 +97,7 @@ class PrintRetrievalHandler(BaseCallbackHandler):
 
 def qa_file(splits):
     general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson plan for a course.  
-    The user will provide you with {text} which is a lesson plan for a course.
+    The user will provide you with {context} which is a lesson plan for a course.
     You are tasked to answer questions on the lesson plan pertaining to the teaching strategies involved, adherence to standards, grammar, correctness of concepts, and completeness of parts.
     You may need to look at the whole Lesson Plan to provide your answers."""
     general_user_template = "Question:```{question}```"
@@ -144,7 +144,7 @@ def qa_file(splits):
         with st.chat_message("assistant"):
             retrieval_handler = PrintRetrievalHandler(st.container())
             stream_handler = StreamHandler(st.empty())
-            response = chain.run(user_query, callbacks=[stream_handler, retrieval_handler])
+            response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
             #response = chain({"question": user_query, "chat_history": st.session_state['history']})
            # st.session_state['history'].append((user_query, response["answer"]))
             #st.write(response)
