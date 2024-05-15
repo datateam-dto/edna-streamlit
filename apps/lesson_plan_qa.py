@@ -56,7 +56,7 @@ import base64 # byte object into a pdf file
 #import camelot as cam # extracting tables from PDFs 
 
 
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+#sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
 openai_api_key = st.secrets["OPENAI_API_KEY"]
 
