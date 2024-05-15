@@ -123,7 +123,7 @@ def qa_file(splits):
     if 'chain' not in st.session_state:
             # Setup LLM and QA chain
         llm = ChatOpenAI(
-            model = "gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.1, streaming=True
+            model = "gpt-4-turbo-2024-04-09", openai_api_key=openai_api_key, temperature=.2, streaming=True
             )
         chain = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, chain_type="stuff", memory=memory)
         st.session_state['chain'] = chain 
