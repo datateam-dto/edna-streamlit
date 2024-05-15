@@ -18,7 +18,7 @@ show_pages(
             # Can use :<icon-name>: or the actual icon
             Page("apps/lesson_plan_qa.py", "Lesson Plan QA","✏️"),
             # The pages appear in the order you pass them
-            Page("apps/lesson_plan_qa.py", "Slides QA","💡"),
+           # Page("apps/lesson_plan_qa.py", "Slides QA","💡"),
 
         ]
     )
@@ -26,4 +26,4 @@ show_pages(
 
 st.page_link("main_app.py", label="Home", icon="🛠️")
 st.page_link("apps/lesson_plan_qa.py", label="Lesson Plan QA", icon="✏️")
-st.page_link("apps/lesson_plan_qa.py", label = "Slides QA", icon="💡")
+#st.page_link("apps/lesson_plan_qa.py", label = "Slides QA", icon="💡")
