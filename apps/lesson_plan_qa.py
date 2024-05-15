@@ -114,8 +114,6 @@ def qa_file(splits):
 
     
 
-    if 'history' not in st.session_state:
-        st.session_state['history'] = []
     if 'chain' not in st.session_state:
             # Setup LLM and QA chain
         llm = ChatOpenAI(
@@ -123,7 +121,6 @@ def qa_file(splits):
             )
         chain = ConversationalRetrievalChain.from_llm(llm, retriever=retriever, memory=memory, combine_docs_chain_kwargs={"prompt": qa_prompt})
         st.session_state['chain'] = chain 
-        st.write("chain created")
 
     chain = st.session_state['chain']
    
