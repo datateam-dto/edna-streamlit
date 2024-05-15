@@ -95,8 +95,11 @@ def qa_file(splits):
     general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson plan for a course.  
     The user will provide you with a set of documents which is a lesson plan for a course.
     You are tasked to answer questions on the lesson plan.
-    You may need to look at the whole Lesson Plan to provide your answers."""
-    general_user_template = "Question:```{question}```"
+    You may need to look at the whole Lesson Plan to provide your answers.
+    
+    {context}
+    """
+    general_user_template ="{question}"
     messages = [
             SystemMessagePromptTemplate.from_template(general_system_template),
             HumanMessagePromptTemplate.from_template(general_user_template)
