@@ -153,9 +153,8 @@ def qa_file(splits):
 
     with container:
         init_prompt = st.selectbox(
-        'You might want to try these prompts...',
-        ['<Click Me to Expand>',
-        ' ',
+        'You might want to try these prompts, click to expand',
+        ['<my own>',
         'What teaching strategies are used',
         'Create more quiz questions',
         'Summarize the Lesson Plan'])
