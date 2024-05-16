@@ -8,7 +8,7 @@ import sys
 import os
 import pysqlite3
 import re
-#from io import StringIO
+import yaml
 
 # Set the path as environment variable
 #sys.path.append("/mount/src/edna-streamlit/apps")
@@ -59,6 +59,12 @@ import base64 # byte object into a pdf file
 #sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 openai.organization = "org-ydtCQcRROzj3YuGKoh4NtXEV"
 openai_api_key = st.secrets["OPENAI_API_KEY"]
+
+try:
+    with open("prompts_.yaml", "r") as file:
+        prompts = yaml.safe_load(file)
+except FileNotFoundError:
+    prompts = {}
 
 
 class StreamHandler(BaseCallbackHandler):
@@ -154,14 +160,11 @@ def qa_file(splits):
     with container:
         init_prompt = st.selectbox(
         'You might want to try these prompts, click to expand',
-        ['<my own>',
-        'What teaching strategies are used',
-        'Create more quiz questions',
-        'Summarize the Lesson Plan'])
+        prompts.keys())
 
         instr = 'Hi there! "Ask your question here.'
         with st.form(key='my_form', clear_on_submit=True):
-            user_query = st.text_input(instr,value=init_prompt,placeholder=instr, label_visibility='collapsed')
+            user_query = st.text_input(instr,value=prompts.get(init_prompt),placeholder=instr, label_visibility='collapsed')
             submit_button = st.form_submit_button(label='Send', on_click=None)
             if submit_button and user_query:
                 with response_container:
