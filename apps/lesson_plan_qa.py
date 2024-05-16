@@ -155,7 +155,7 @@ def qa_file(splits):
         with st.form(key='my_form', clear_on_submit=True):
             user_query = st.text_input("Query:", placeholder="Ask your question here (:", key='input')
             if prompt1:
-                st.text_input(value = "What are the teaching strategies?",key='input')
+                st.text_input("Query:", value = "What are the teaching strategies?",key='input')
             submit_button = st.form_submit_button(label='Send', on_click=None)
 
             if submit_button and user_query:
