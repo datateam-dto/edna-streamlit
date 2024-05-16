@@ -161,12 +161,10 @@ def qa_file(splits):
         init_prompt = st.selectbox(
         'You might want to try these prompts, click to expand',
         prompts.get("lesson_plan").keys())
-        st.write(init_prompt)
-        st.write(prompts.get("lesson_plan")[init_prompt])
 
         instr = 'Hi there! "Ask your question here.'
         with st.form(key='my_form', clear_on_submit=True):
-            user_query = st.text_input(instr,value=prompts.get(init_prompt),placeholder=instr, label_visibility='collapsed')
+            user_query = st.text_input(instr,value=prompts.get("lesson_plan")[init_prompt],placeholder=instr, label_visibility='collapsed')
             submit_button = st.form_submit_button(label='Send', on_click=None)
             if submit_button and user_query:
                 with response_container:
