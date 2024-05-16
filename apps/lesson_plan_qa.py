@@ -98,10 +98,10 @@ class PrintRetrievalHandler(BaseCallbackHandler):
 
 
 def qa_file(splits):
-    general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson guide for a course.  
-    The user will provide you with a set of documents which is a lesson guide for a course.
-    You are tasked to answer questions on the lesson guide.
-    You may need to look at the whole Lesson guide to provide your answers.
+    general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson plan for a course.  
+    The user will provide you with a set of documents which is a lesson plan for a course.
+    You are tasked to answer questions on the lesson plan.
+    You may need to look at the whole Lesson plan to provide your answers.
     
     {context}
     """
@@ -231,7 +231,7 @@ def convert_to_markdown(text):
 
 def main():
     # Start of streamlit application
-    st.header("Lesson Guide QA Bot", divider = "green")
+    st.header("Lesson Plan QA Bot", divider = "green")
 
 
     # Intitialization

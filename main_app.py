@@ -16,7 +16,7 @@ show_pages(
         [
             Page("main_app.py","EDNA AI Home","👩🏻‍🏫"),
             # Can use :<icon-name>: or the actual icon
-            Page("apps/lesson_plan_qa.py", "Lesson Guide QA","📖"),
+            Page("apps/lesson_plan_qa.py", "Lesson Plan QA","📖"),
             # The pages appear in the order you pass them
            # Page("apps/lesson_plan_qa.py", "Slides QA","▶️"),
 
