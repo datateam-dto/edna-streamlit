@@ -126,6 +126,8 @@ def qa_file(splits):
         st.session_state['chain'] = chain 
 
     chain = st.session_state['chain']
+
+    prompt1 = st.sidebar.button("Teaching strategies")
    
     if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
             msgs.clear()
@@ -134,8 +136,10 @@ def qa_file(splits):
     avatars = {"human": "user", "ai": "assistant"}
     for msg in msgs.messages:
         st.chat_message(avatars[msg.type]).write(msg.content)
+    
     if user_query := st.chat_input(placeholder="Ask me anything!"):
         st.chat_message("user").write(user_query)
+        
 
         with st.chat_message("assistant"):
             retrieval_handler = PrintRetrievalHandler(st.container())
@@ -144,6 +148,9 @@ def qa_file(splits):
             #response = chain({"question": user_query, "chat_history": st.session_state['history']})
            # st.session_state['history'].append((user_query, response["answer"]))
             #st.write(response)
+    elif prompt1:
+        st.chat_message("user").write("What are the topics covered in the lesson plan?")
+
 
     
 
