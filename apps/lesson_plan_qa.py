@@ -117,8 +117,10 @@ def qa_file(splits):
         st.session_state['chain'] = chain 
 
     chain = st.session_state['chain']
-   
-    if len(msgs.messages) == 0 or st.sidebar.button("Clear message history", use_container_width = True):
+    st.sidebar.header("Chat Options")
+    btn_clear = st.sidebar.button("Clear message history", use_container_width = True)
+
+    if len(msgs.messages) == 0 or btn_clear:
             msgs.clear()
             msgs.add_ai_message("How can I help you?")
 
@@ -140,14 +142,15 @@ def qa_file(splits):
         for msg in msgs.messages:
             st.chat_message(avatars[msg.type]).write(msg.content)
     
-    with st.sidebar:
-        st.divider()
-        st.header("Prompt Suggestions")
+    #with st.sidebar:
+    #    st.divider()
+     #   st.header("Prompt Suggestions")
+
+   
+    with container:
         init_prompt = st.selectbox(
         'You might want to try these prompts, click to expand',
         prompts.get("lesson_plan").keys())
-   
-    with container:
         instr = 'Hi there! "Ask your question here.'
         with st.form(key='my_form', clear_on_submit=True):
             user_query = st.text_input(instr,value=prompts.get("lesson_plan")[init_prompt],placeholder=instr, label_visibility='collapsed')
