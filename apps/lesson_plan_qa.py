@@ -137,22 +137,23 @@ def qa_file(splits):
     for msg in msgs.messages:
         st.chat_message(avatars[msg.type]).write(msg.content)
     
-    if user_query := st.chat_input(placeholder="Ask me anything!"):
-        st.chat_message("user").write(user_query)
-        with st.chat_message("assistant"):
-            retrieval_handler = PrintRetrievalHandler(st.container())
-            stream_handler = StreamHandler(st.empty())
-            response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
-            #response = chain({"question": user_query, "chat_history": st.session_state['history']})
-           # st.session_state['history'].append((user_query, response["answer"]))
-            #st.write(response)
-    elif prompt1:
-        st.chat_message("user").write("What are the topics covered in the lesson plan?")
-        with st.chat_message("assistant"):
-            retrieval_handler = PrintRetrievalHandler(st.container())
-            stream_handler = StreamHandler(st.empty())
-            response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
+    #if user_query := st.chat_input(placeholder="Ask me anything!"):
+      #  st.chat_message("user").write(user_query)
+      #  with st.chat_message("assistant"):
+      #      retrieval_handler = PrintRetrievalHandler(st.container())
+      #      stream_handler = StreamHandler(st.empty())
+       #     response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
+        
 
+    with st.form(key='my_form', clear_on_submit=True):
+        user_query = st.text_input("Query:", placeholder="Ask your question here (:", key='input')
+        submit_button = st.form_submit_button(label='Send', on_click=None)
+        if submit_button and user_query:
+            st.chat_message("user").write(user_query)
+            with st.chat_message("assistant"):
+                retrieval_handler = PrintRetrievalHandler(st.container())
+                stream_handler = StreamHandler(st.empty())
+                response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
 
     
 
