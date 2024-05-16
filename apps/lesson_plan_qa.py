@@ -152,7 +152,7 @@ def qa_file(splits):
         #container for the chat history
     response_container = st.container()
         #container for the user's text input
-    container = st.container(height=300)
+    container = st.container(height = 100)
     with response_container:
         for msg in msgs.messages:
             st.chat_message(avatars[msg.type]).write(msg.content)
@@ -164,11 +164,9 @@ def qa_file(splits):
 
         instr = 'Hi there! "Ask your question here.'
         with st.form(key='my_form', clear_on_submit=True):
-            #user_query = st.text_input(instr,value=prompts.get("lesson_plan")[init_prompt],placeholder=instr, label_visibility='collapsed')
-            #submit_button = st.form_submit_button(label='Send', on_click=None)
-            if user_query := st.chat_input(placeholder="Ask me anything!"):
-                st.chat_message("user").write(user_query)
-            #if submit_button and user_query:
+            user_query = st.text_input(instr,value=prompts.get("lesson_plan")[init_prompt],placeholder=instr, label_visibility='collapsed')
+            submit_button = st.form_submit_button(label='Send', on_click=None)
+            if submit_button and user_query:
                 with response_container:
                     st.chat_message("user").write(user_query)
                     with st.chat_message("assistant"):
