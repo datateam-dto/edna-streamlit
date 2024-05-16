@@ -199,8 +199,7 @@ def split_text_markdown(markdown_document):
     ("## Step", "Step"),]
     markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on, strip_headers=False)
     md_header_splits = markdown_splitter.split_text(markdown_document)
-    #splits = split_splits_md(md_header_splits)
-    splits = split_splits_semantic(md_header_splits)
+    splits = split_splits_md(md_header_splits)
     return splits
 
 def extract_text_(_file):
