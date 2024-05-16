@@ -166,8 +166,8 @@ def qa_file(splits):
             submit_button = st.form_submit_button(label='Send', on_click=None)
             if submit_button and user_query:
                 with response_container:
-                    st.chat_message("user").write(user_query)
-                    with st.chat_message("assistant"):
+                    st.chat_message("user", avatar = "🙋").write(user_query)
+                    with st.chat_message("assistant", avatar = "👩🏻‍🏫"):
                         retrieval_handler = PrintRetrievalHandler(st.container())
                         stream_handler = StreamHandler(st.empty())
                         response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])

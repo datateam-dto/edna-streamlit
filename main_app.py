@@ -24,6 +24,6 @@ show_pages(
     )
 
 
-st.page_link("main_app.py", label="Home", icon="🛠️")
-st.page_link("apps/lesson_plan_qa.py", label="Lesson Plan QA", icon="✏️")
-#st.page_link("apps/lesson_plan_qa.py", label = "Slides QA", icon="💡")
+st.page_link("main_app.py", label="Home", icon="👩🏻‍🏫")
+st.page_link("apps/lesson_plan_qa.py", label="Lesson Plan QA", icon="📖")
+#st.page_link("apps/lesson_plan_qa.py", label = "Slides QA", icon="▶️")
