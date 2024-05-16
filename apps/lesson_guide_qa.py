@@ -37,6 +37,9 @@ from pdfminer.high_level import extract_text
 from pdfminer.high_level import extract_text_to_fp
 from pdfminer.layout import LAParams
 
+import streamlit-scrollable-textbox as stx
+
+
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain_text_splitters import MarkdownHeaderTextSplitter
@@ -200,6 +203,7 @@ def split_text_markdown(markdown_document):
     ("## Step", "Step"),]
     markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on, strip_headers=False)
     md_header_splits = markdown_splitter.split_text(markdown_document)
+    stx.scrollable_textbox(md_header_splits)
     splits = split_splits_md(md_header_splits)
     return splits
 
