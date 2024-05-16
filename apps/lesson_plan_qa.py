@@ -235,7 +235,7 @@ def main():
 
 
     # Intitialization
-    st.header("### File upload")
+    st.markdown("### File upload")
     uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         #html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
