@@ -214,13 +214,14 @@ def extract_text_(_file):
     for i in range(number_of_pages):
         page = reader.pages[i]
         text = page.extract_text()
-        content = content + " " + text
+        content = content + "  \n" + text
     return content
 
 def convert_to_markdown(text):
     markdown = text
-    markdown = re.sub(r'(Step \d+)\.\s+(.*)\n', r'## \1 \2', markdown, flags=re.MULTILINE)
-    markdown = re.sub(r'(Step \d+)\.\s+(.*)', r'## \1 \2', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'(Step \d+)\.\s+(.*)\n', r'## \1 \2  \n', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'(Step \d+)\.\s+(.*)', r'## \1 \2  \n', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'^(#+)(.*)', r'\1 \2', markdown, flags=re.MULTILINE)
 
     return markdown
 
