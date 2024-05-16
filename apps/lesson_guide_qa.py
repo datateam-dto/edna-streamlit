@@ -158,12 +158,14 @@ def qa_file(splits):
     with response_container:
         for msg in msgs.messages:
             st.chat_message(avatars[msg.type]).write(msg.content)
-
-    with container:
+    
+    with st.sidebar:
+        st.header("Prompt Suggestions")
         init_prompt = st.selectbox(
         'You might want to try these prompts, click to expand',
         prompts.get("lesson_plan").keys())
 
+    with container:
         instr = 'Hi there! "Ask your question here.'
         with st.form(key='my_form', clear_on_submit=True):
             user_query = st.text_input(instr,value=prompts.get("lesson_plan")[init_prompt],placeholder=instr, label_visibility='collapsed')
@@ -237,7 +239,7 @@ def main():
 
     # Intitialization
     with st.sidebar:
-        st.markdown("#### File upload")
+        st.header("File upload")
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)

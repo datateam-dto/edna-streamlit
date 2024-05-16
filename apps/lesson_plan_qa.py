@@ -223,7 +223,7 @@ def main():
 
     # Intitialization
     with st.sidebar:
-        st.markdown("#### File upload")
+        st.header ("File upload")
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
