@@ -118,7 +118,7 @@ def qa_file(splits):
 
     chain = st.session_state['chain']
    
-    if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
+    if len(msgs.messages) == 0 or st.sidebar.button("Clear message history", use_container_width = True):
             msgs.clear()
             msgs.add_ai_message("How can I help you?")
 
@@ -231,7 +231,7 @@ def main():
         content = extract_text_(uploaded_file)
         md_text = convert_to_markdown(content)  
         st.markdown("Extracted text from PDF file:") 
-        stx.scrollableTextbox(md_text, height = 200)
+        stx.scrollableTextbox(md_text, height = 200, font_size = 10)
         splits = split_text_markdown(md_text)
         qa_file(splits)
             #split_text(content)
