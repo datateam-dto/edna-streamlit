@@ -236,8 +236,8 @@ def main():
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
-        st.markdown(content)
         md_text = convert_to_markdown(content)  
+        st.markdown(content)
         splits = split_text_markdown(md_text)
         #st.write(splits)
         #qa_file(splits)
