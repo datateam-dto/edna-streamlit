@@ -152,7 +152,7 @@ def qa_file(splits):
         #container for the chat history
     response_container = st.container()
         #container for the user's text input
-    container = st.container(height = 100)
+    container = st.container()
     with response_container:
         for msg in msgs.messages:
             st.chat_message(avatars[msg.type]).write(msg.content)
