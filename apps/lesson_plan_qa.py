@@ -163,20 +163,20 @@ def qa_file(splits):
         prompts.get("lesson_plan").keys())
 
         instr = 'Hi there! "Ask your question here.'
-        with st.form(key='my_form', clear_on_submit=True):
+        #with st.form(key='my_form', clear_on_submit=True):
             #user_query = st.text_input(instr,value=prompts.get("lesson_plan")[init_prompt],placeholder=instr, label_visibility='collapsed')
             #submit_button = st.form_submit_button(label='Send', on_click=None)
-            if user_query := st.chat_input(placeholder="Ask me anything!"):
-                st.chat_message("user").write(user_query)
+        if user_query := st.chat_input(placeholder="Ask me anything!"):
+            st.chat_message("user").write(user_query)
             #if submit_button and user_query:
-                with response_container:
+            with response_container:
                     #st.chat_message("user").write(user_query)
-                    with st.chat_message("assistant"):
-                        retrieval_handler = PrintRetrievalHandler(st.container())
-                        stream_handler = StreamHandler(st.empty())
-                        response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
-            default_chat_input_value =prompts.get("lesson_plan")[init_prompt]
-            js = f"""
+                 with st.chat_message("assistant"):
+                    retrieval_handler = PrintRetrievalHandler(st.container())
+                    stream_handler = StreamHandler(st.empty())
+                    response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
+        default_chat_input_value =prompts.get("lesson_plan")[init_prompt]
+        js = f"""
     <script>
         function insertText(dummy_var_to_force_repeat_execution) {{
             var chatInput = parent.document.querySelector('textarea[data-testid="stChatInput"]');
@@ -188,7 +188,7 @@ def qa_file(splits):
         insertText({len(st.session_state.messages)});
     </script>
     """
-            st.components.v1.html(js)
+        st.components.v1.html(js)
     
 
 def split_text_semantic(text):
