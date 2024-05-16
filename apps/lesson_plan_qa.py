@@ -231,7 +231,7 @@ def convert_to_markdown(text):
 
 def main():
     # Start of streamlit application
-    st.title("Lesson Guide QA Bot")
+    st.header("Lesson Guide QA Bot", divider = "green")
 
 
     # Intitialization
