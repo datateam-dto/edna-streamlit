@@ -196,7 +196,7 @@ def split_splits_semantic(md_splits):
 
 def split_text_markdown(markdown_document):
     headers_to_split_on = [
-    ("##", "Step"),]
+    ("## Step", "Step"),]
     markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on, strip_headers=False)
     md_header_splits = markdown_splitter.split_text(markdown_document)
     #st.write(md_header_splits)
@@ -221,7 +221,7 @@ def extract_text_(_file):
 def convert_to_markdown(text):
     markdown = text
     markdown = re.sub(r'(Step \d+)\.\s+(.*)', r'## \1 \2', markdown, flags=re.MULTILINE)
-    markdown = re.sub(r'(Step \d+)\.\s+(.*)\\n', r'## \1 \2', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'(Step \d+)\.\s+(.*)\n', r'## \1 \2', markdown, flags=re.MULTILINE)
     return markdown
 
 def main():
