@@ -134,8 +134,7 @@ def qa_file(splits):
             msgs.add_ai_message("How can I help you?")
 
     avatars = {"human": "user", "ai": "assistant"}
-    for msg in msgs.messages:
-        st.chat_message(avatars[msg.type]).write(msg.content)
+
     
     #if user_query := st.chat_input(placeholder="Ask me anything!"):
       #  st.chat_message("user").write(user_query)
@@ -144,17 +143,24 @@ def qa_file(splits):
       #      stream_handler = StreamHandler(st.empty())
        #     response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
         
+        #container for the chat history
+    response_container = st.container()
+        #container for the user's text input
+    container = st.container()
 
-    with st.form(key='my_form', clear_on_submit=True):
-        user_query = st.text_input("Query:", placeholder="Ask your question here (:", key='input')
-        submit_button = st.form_submit_button(label='Send', on_click=None)
-        if submit_button and user_query:
-            st.chat_message("user").write(user_query)
-            with st.chat_message("assistant"):
-                retrieval_handler = PrintRetrievalHandler(st.container())
-                stream_handler = StreamHandler(st.empty())
-                response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
-
+    with container:
+        with st.form(key='my_form', clear_on_submit=True):
+            user_query = st.text_input("Query:", placeholder="Ask your question here (:", key='input')
+            submit_button = st.form_submit_button(label='Send', on_click=None)
+            if submit_button and user_query:
+                st.chat_message("user").write(user_query)
+                with st.chat_message("assistant"):
+                    retrieval_handler = PrintRetrievalHandler(st.container())
+                    stream_handler = StreamHandler(st.empty())
+                    response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
+        with response_container:
+            for msg in msgs.messages:
+                st.chat_message(avatars[msg.type]).write(msg.content)
     
 
 def split_text_semantic(text):
