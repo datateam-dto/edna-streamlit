@@ -154,7 +154,10 @@ def qa_file(splits):
     with container:
         with st.form(key='my_form', clear_on_submit=True):
             user_query = st.text_input("Query:", placeholder="Ask your question here (:", key='input')
+            if prompt1:
+                st.text_input.value = "What are the teaching strategies?"
             submit_button = st.form_submit_button(label='Send', on_click=None)
+
             if submit_button and user_query:
                 with response_container:
                     st.chat_message("user").write(user_query)
@@ -190,7 +193,7 @@ def split_text_markdown(markdown_document):
     ("##", "Part"),]
     markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on, strip_headers=False)
     md_header_splits = markdown_splitter.split_text(markdown_document)
-    st.write(md_header_splits)
+    #st.write(md_header_splits)
     splits = split_splits_md(md_header_splits)
     return splits
 
