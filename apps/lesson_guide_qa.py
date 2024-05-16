@@ -176,9 +176,10 @@ def qa_file(splits):
 
 def split_text_semantic(text):
     text_splitter = SemanticChunker(OpenAIEmbeddings())
-    docs = text_splitter.create_documents([text])
-    print(docs[0].page_content)
-    st.text(docs[0].page_content)
+    splits = text_splitter.create_documents([text])
+    return splits
+    #print(docs[0].page_content)
+    #st.text(docs[0].page_content)
 
 def split_splits_md(md_splits):
     chunk_size = 1000
@@ -220,13 +221,7 @@ def extract_text_(_file):
 
 def convert_to_markdown(text):
     markdown = text
-    markdown = re.sub(r'^(#+)(.*)', r'\1 \2', markdown, flags=re.MULTILINE)
-    markdown = re.sub(r'([IV|VI|VII|III|II|I|V]+\.)\s+(.*)', r'# \1 \2', markdown, flags=re.MULTILINE)
-    # Convert ordered lists
-    markdown = re.sub(r'^\s*([a-z]\))\s+(.*)\n(.*)', r'## \1 \2 \3', markdown, flags=re.MULTILINE)
-    # Convert unordered lists
-    markdown = re.sub(r'^\*\s+(.*)', r'- \1', markdown, flags=re.MULTILINE)
-    
+    markdown = re.sub(r'(Step \d+)\.\s+(.*)', r'# \1 \2', markdown, flags=re.MULTILINE)
     return markdown
 
 def main():
@@ -240,9 +235,10 @@ def main():
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
-        st.markdown(content)
-        #md_text = convert_to_markdown(content)  
-        #splits = split_text_markdown(md_text)
+        #st.markdown(content)
+        md_text = convert_to_markdown(content)  
+        splits = split_text_markdown(md_text)
+        st.write(splits)
         #qa_file(splits)
             #split_text(content)
 
