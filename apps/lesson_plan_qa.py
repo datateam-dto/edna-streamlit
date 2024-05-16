@@ -139,12 +139,13 @@ def qa_file(splits):
     with response_container:
         for msg in msgs.messages:
             st.chat_message(avatars[msg.type]).write(msg.content)
-
-    with container:
+    
+    with st.sidebar:
         init_prompt = st.selectbox(
         'You might want to try these prompts, click to expand',
         prompts.get("lesson_plan").keys())
-
+   
+    with container:
         instr = 'Hi there! "Ask your question here.'
         with st.form(key='my_form', clear_on_submit=True):
             user_query = st.text_input(instr,value=prompts.get("lesson_plan")[init_prompt],placeholder=instr, label_visibility='collapsed')
