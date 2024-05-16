@@ -137,7 +137,7 @@ def qa_file(splits):
             msgs.clear()
             msgs.add_ai_message("How can I help you?")
 
-    avatars = {"human": "🙋", "ai": "👩🏻‍🏫"}
+    avatars = {"human": "user", "ai": "👩🏻‍🏫"}
 
     
     #if user_query := st.chat_input(placeholder="Ask me anything!"):
@@ -166,7 +166,7 @@ def qa_file(splits):
             submit_button = st.form_submit_button(label='Send', on_click=None)
             if submit_button and user_query:
                 with response_container:
-                    st.chat_message("user", avatar = "🙋").write(user_query)
+                    st.chat_message("user").write(user_query)
                     with st.chat_message("assistant", avatar = "👩🏻‍🏫"):
                         retrieval_handler = PrintRetrievalHandler(st.container())
                         stream_handler = StreamHandler(st.empty())
