@@ -31,6 +31,7 @@ from langchain.vectorstores import Chroma
 from langchain.vectorstores import DocArrayInMemorySearch
 from streamlit_chat import message
 from langchain import PromptTemplate
+import streamlit_scrollable_textbox as stx
 import st_btn_select
 import tempfile
 from pdfminer.high_level import extract_text
@@ -152,7 +153,7 @@ def qa_file(splits):
         #container for the chat history
     response_container = st.container()
         #container for the user's text input
-    container = st.container(height=1000)
+    container = st.container()
     with response_container:
         for msg in msgs.messages:
             st.chat_message(avatars[msg.type]).write(msg.content)
@@ -164,7 +165,7 @@ def qa_file(splits):
 
         instr = 'Hi there! "Ask your question here.'
         with st.form(key='my_form', clear_on_submit=True):
-            user_query = st.text_input(instr,value=prompts.get("lesson_plan")[init_prompt],placeholder=instr, label_visibility='collapsed')
+            user_query = stx.scrollableTextbox(text=prompts.get("lesson_plan")[init_prompt], height = 300)
             submit_button = st.form_submit_button(label='Send', on_click=None)
             if submit_button and user_query:
                 with response_container:

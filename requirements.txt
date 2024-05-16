@@ -17,3 +17,4 @@ langchain-openai
 langchain-text-splitters
 ghostscript
 docarray
+streamlit-scrollable-textbox
