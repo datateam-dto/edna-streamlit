@@ -141,6 +141,7 @@ def qa_file(splits):
             st.chat_message(avatars[msg.type]).write(msg.content)
     
     with st.sidebar:
+        st.divider()
         st.header("Prompt Suggestions")
         init_prompt = st.selectbox(
         'You might want to try these prompts, click to expand',
@@ -225,6 +226,7 @@ def main():
     with st.sidebar:
         st.header ("File upload")
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
+        st.divider()
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
         md_text = convert_to_markdown(content)  
