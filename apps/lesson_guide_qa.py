@@ -196,8 +196,7 @@ def split_splits_semantic(md_splits):
 
 def split_text_markdown(markdown_document):
     headers_to_split_on = [
-    ("#", "Section"),
-    ("##", "Part"),]
+    ("#", "Step"),]
     markdown_splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on, strip_headers=False)
     md_header_splits = markdown_splitter.split_text(markdown_document)
     #st.write(md_header_splits)
