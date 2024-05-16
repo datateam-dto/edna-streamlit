@@ -175,6 +175,7 @@ def qa_file(splits):
                     retrieval_handler = PrintRetrievalHandler(st.container())
                     stream_handler = StreamHandler(st.empty())
                     response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
+            st.session_state.messages.append({"role": "user", "content": user_query})
         default_chat_input_value =prompts.get("lesson_plan")[init_prompt]
         js = f"""
     <script>
