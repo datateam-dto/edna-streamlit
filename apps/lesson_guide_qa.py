@@ -238,7 +238,7 @@ def main():
         st.markdown(content)
         md_text = convert_to_markdown(content)  
         splits = split_text_markdown(md_text)
-        st.write(splits)
+        #st.write(splits)
         #qa_file(splits)
             #split_text(content)
 
