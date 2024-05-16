@@ -242,10 +242,9 @@ def main():
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
         md_text = convert_to_markdown(content)  
-        stx.scrollableTextbox(md_text)
+        stx.scrollableTextbox(md_text, height = 200)
         #st.markdown(md_text)
         splits = split_text_markdown(md_text)
-        st.write(splits)
         qa_file(splits)
 
 if __name__ == "__main__":
