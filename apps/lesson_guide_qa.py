@@ -231,7 +231,7 @@ def convert_to_markdown(text):
 
 def main():
     # Start of streamlit application
-    st.header("Lesson Plan QA Bot", divider = "green")
+    st.header("Lesson Guide QA Bot", divider = "green")
 
 
     # Intitialization
@@ -240,7 +240,7 @@ def main():
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
-        st.write(content)
+        st.markdown(content)
         #md_text = convert_to_markdown(content)  
         #splits = split_text_markdown(md_text)
         #qa_file(splits)
