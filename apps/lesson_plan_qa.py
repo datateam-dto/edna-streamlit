@@ -160,7 +160,7 @@ def qa_file(splits):
     with container:
         init_prompt = st.selectbox(
         'You might want to try these prompts, click to expand',
-        prompts.keys())
+        prompts.get("lesson_plan").keys())
 
         instr = 'Hi there! "Ask your question here.'
         with st.form(key='my_form', clear_on_submit=True):
