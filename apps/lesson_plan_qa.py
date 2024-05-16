@@ -98,10 +98,10 @@ class PrintRetrievalHandler(BaseCallbackHandler):
 
 
 def qa_file(splits):
-    general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson plan for a course.  
-    The user will provide you with a set of documents which is a lesson plan for a course.
-    You are tasked to answer questions on the lesson plan.
-    You may need to look at the whole Lesson Plan to provide your answers.
+    general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson guide for a course.  
+    The user will provide you with a set of documents which is a lesson guide for a course.
+    You are tasked to answer questions on the lesson guide.
+    You may need to look at the whole Lesson guide to provide your answers.
     
     {context}
     """
@@ -132,14 +132,12 @@ def qa_file(splits):
         st.session_state['chain'] = chain 
 
     chain = st.session_state['chain']
-
-    prompt1 = st.sidebar.button("Teaching strategies")
    
     if len(msgs.messages) == 0 or st.sidebar.button("Clear message history"):
             msgs.clear()
             msgs.add_ai_message("How can I help you?")
 
-    avatars = {"human": "user", "ai": "assistant"}
+    avatars = {"human": "🙋", "ai": "👩🏻‍🏫"}
 
     
     #if user_query := st.chat_input(placeholder="Ask me anything!"):
@@ -233,7 +231,7 @@ def convert_to_markdown(text):
 
 def main():
     # Start of streamlit application
-    st.title("Lesson Plan QA Bot")
+    st.title("Lesson Guide QA Bot")
 
 
     # Intitialization
