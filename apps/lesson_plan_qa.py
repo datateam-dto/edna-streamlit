@@ -238,15 +238,11 @@ def main():
     with st.sidebar:
         st.markdown("#### File upload")
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
-        if uploaded_file is not None :
-            #html_output  = extract_text_to_fp(uploaded_file, output_string, laparams=LAParams(),output_type='html', codec=None)
-            #content = extract_text(uploaded_file, page_numbers=None, maxpages=0, caching=True, codec='utf-8', laparams=None)
-            #print(text)
-            content = extract_text_(uploaded_file)
-            md_text = convert_to_markdown(content)
-            #st.markdown(md_text)
-            splits = split_text_markdown(md_text)
-            qa_file(splits)
+    if uploaded_file is not None :
+        content = extract_text_(uploaded_file)
+        md_text = convert_to_markdown(content)  
+        splits = split_text_markdown(md_text)
+        qa_file(splits)
             #split_text(content)
 
 if __name__ == "__main__":
