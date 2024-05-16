@@ -241,6 +241,7 @@ def main():
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
+        st.markdown("Extracted text from PDF file:")
         md_text = convert_to_markdown(content)  
         stx.scrollableTextbox(md_text, height = 200)
         #st.markdown(md_text)
