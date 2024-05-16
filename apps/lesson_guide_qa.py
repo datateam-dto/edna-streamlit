@@ -174,9 +174,9 @@ def qa_file(splits):
      
     
 
-def split_text_semantic(text):
+def split_text_semantic(md_splits):
     text_splitter = SemanticChunker(OpenAIEmbeddings())
-    splits = text_splitter.create_documents([text])
+    splits = text_splitter.create_documents(md_splits)
     return splits
     #print(docs[0].page_content)
     #st.text(docs[0].page_content)
