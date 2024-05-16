@@ -152,12 +152,17 @@ def qa_file(splits):
             st.chat_message(avatars[msg.type]).write(msg.content)
 
     with container:
-        with st.form(key='my_form', clear_on_submit=True):
-            user_query = st.text_input("Query:", placeholder="Ask your question here (:", key='input')
-            if prompt1:
-                st.text_input("Query:", value = "What are the teaching strategies?",key='input')
-            submit_button = st.form_submit_button(label='Send', on_click=None)
+        init_prompt = st.selectbox(
+        'You might want to try these prompts...',
+        ['<Click Me to Expand>',
+        'What teaching strategies are used',
+        'Create more quiz questions',
+        'Summarize the Lesson Plan'])
 
+        instr = 'Hi there! "Ask your question here.'
+        with st.form(key='my_form', clear_on_submit=True):
+            user_query = st.text_input(instr,value=init_prompt,placeholder=instr, label_visibility='collapsed')
+            submit_button = st.form_submit_button(label='Send', on_click=None)
             if submit_button and user_query:
                 with response_container:
                     st.chat_message("user").write(user_query)
