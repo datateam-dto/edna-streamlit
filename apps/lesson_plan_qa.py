@@ -21,6 +21,7 @@ from langchain.embeddings import OpenAIEmbeddings
 from langchain.vectorstores import DocArrayInMemorySearch
 import st_btn_select
 import tempfile
+import streamlit_scrollable_textbox as stx
 
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai.embeddings import OpenAIEmbeddings
@@ -225,6 +226,8 @@ def main():
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
         md_text = convert_to_markdown(content)  
+        st.markdown("Extracted text from PDF file:") 
+        stx.scrollableTextbox(md_text, height = 200)
         splits = split_text_markdown(md_text)
         qa_file(splits)
             #split_text(content)
