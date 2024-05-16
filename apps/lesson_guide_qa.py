@@ -215,7 +215,7 @@ def extract_text_(_file):
     for i in range(number_of_pages):
         page = reader.pages[i]
         text = page.extract_text()
-        content = content + text
+        content = content + " " + text
     return content
 
 def convert_to_markdown(text):
