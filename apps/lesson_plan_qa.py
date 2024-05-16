@@ -147,6 +147,9 @@ def qa_file(splits):
     response_container = st.container()
         #container for the user's text input
     container = st.container()
+    with response_container:
+        for msg in msgs.messages:
+            st.chat_message(avatars[msg.type]).write(msg.content)
 
     with container:
         with st.form(key='my_form', clear_on_submit=True):
@@ -158,9 +161,7 @@ def qa_file(splits):
                     retrieval_handler = PrintRetrievalHandler(st.container())
                     stream_handler = StreamHandler(st.empty())
                     response = chain.run({"question": user_query}, callbacks=[stream_handler, retrieval_handler])
-        with response_container:
-            for msg in msgs.messages:
-                st.chat_message(avatars[msg.type]).write(msg.content)
+     
     
 
 def split_text_semantic(text):
