@@ -37,7 +37,7 @@ from pdfminer.high_level import extract_text
 from pdfminer.high_level import extract_text_to_fp
 from pdfminer.layout import LAParams
 
-import streamlit-scrollable-textbox as stx
+import streamlit_scrollable_textbox as stx
 
 
 from langchain_experimental.text_splitter import SemanticChunker
