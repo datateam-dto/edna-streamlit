@@ -220,8 +220,8 @@ def extract_text_(_file):
 
 def convert_to_markdown(text):
     markdown = text
-    markdown = re.sub(r'(Step \d+)\.\s+(.*)\n', r'## \1 \2  \n', markdown, flags=re.MULTILINE)
-    markdown = re.sub(r'(Step \d+)\.\s+(.*)', r'## \1 \2  \n', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'(Step \d+)\.\s+(.*)\n', r'##\1 \2  \n', markdown, flags=re.MULTILINE)
+    markdown = re.sub(r'(Step \d+)\.\s+(.*)', r'##\1 \2  \n', markdown, flags=re.MULTILINE)
     markdown = re.sub(r'^(#+)(.*)', r'\1 \2', markdown, flags=re.MULTILINE)
 
     return markdown
