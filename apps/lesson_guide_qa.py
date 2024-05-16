@@ -14,18 +14,34 @@ import yaml
 #sys.path.append("/mount/src/edna-streamlit/apps")
 
 
-
+from langchain.document_loaders import TextLoader
+from langchain.text_splitter import CharacterTextSplitter
+from langchain.docstore.document import Document
+from langchain.llms.openai import OpenAI
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationalRetrievalChain
+from langchain.chains.summarize import load_summarize_chain
+from langchain.chains import RetrievalQA
+from langchain.document_loaders import TextLoader
+from langchain.document_loaders import PyPDFLoader
+from langchain.indexes import VectorstoreIndexCreator
+from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import OpenAIEmbeddings
+from langchain.vectorstores import Chroma
 from langchain.vectorstores import DocArrayInMemorySearch
+from streamlit_chat import message
+from langchain import PromptTemplate
 import st_btn_select
 import tempfile
+from pdfminer.high_level import extract_text
+from pdfminer.high_level import extract_text_to_fp
+from pdfminer.layout import LAParams
 
 from langchain_experimental.text_splitter import SemanticChunker
 from langchain_openai.embeddings import OpenAIEmbeddings
 from langchain_text_splitters import MarkdownHeaderTextSplitter
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from langchain.prompts import PromptTemplate
 from langchain.prompts import SystemMessagePromptTemplate, HumanMessagePromptTemplate, ChatPromptTemplate
 from langchain.callbacks.base import BaseCallbackHandler
 from langchain.memory import ConversationBufferMemory
@@ -224,9 +240,10 @@ def main():
         uploaded_file = st.file_uploader("Choose a file (pdf)", type=["pdf"], help="file to be parsed")
     if uploaded_file is not None :
         content = extract_text_(uploaded_file)
-        md_text = convert_to_markdown(content)  
-        splits = split_text_markdown(md_text)
-        qa_file(splits)
+        st.write(content)
+        #md_text = convert_to_markdown(content)  
+        #splits = split_text_markdown(md_text)
+        #qa_file(splits)
             #split_text(content)
 
 if __name__ == "__main__":
