@@ -141,6 +141,7 @@ def qa_file(splits):
             st.chat_message(avatars[msg.type]).write(msg.content)
     
     with st.sidebar:
+        st.header("Prompt Suggestions")
         init_prompt = st.selectbox(
         'You might want to try these prompts, click to expand',
         prompts.get("lesson_plan").keys())
