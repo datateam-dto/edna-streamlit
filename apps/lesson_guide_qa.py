@@ -98,10 +98,11 @@ class PrintRetrievalHandler(BaseCallbackHandler):
 
 
 def qa_file(splits):
-    general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson plan for a course.  
-    The user will provide you with a set of documents which is a lesson plan for a course.
+    general_system_template = """You are a Quality Assurance assistant, checking the quality of the lesson guide for a course.  
+    The user will provide you with a set of documents which is the text from a slideshow of the lesson guide.  
+    The lesson guide serves as a guide for teachers to prepare for teaching the lesson.
     You are tasked to answer questions on the lesson plan.
-    You may need to look at the whole Lesson plan to provide your answers.
+    You may need to look at the whole Lesson guide to provide your answers.
     
     {context}
     """
@@ -240,8 +241,7 @@ def main():
         #st.markdown(md_text)
         splits = split_text_markdown(md_text)
         st.write(splits)
-        #qa_file(splits)
-            #split_text(content)
+        qa_file(splits)
 
 if __name__ == "__main__":
  
